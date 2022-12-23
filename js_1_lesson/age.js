@@ -1,4 +1,4 @@
-let input = prompt("In what year were you born?");
-let year = 2022;
-alert(`Age: ${year-input}`);
-console.log(`Age: ${year-input}`);
+const input = Number(prompt("What year you were born in?"));
+const currentYear = 2022;
+const age = currentYear - input;
+console.log("Age:", age);
