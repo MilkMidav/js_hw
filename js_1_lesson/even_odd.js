@@ -1,4 +1,4 @@
-let input = prompt("Number:");
+const input = prompt("Number:");
 
 if(input % 2 === 0) {
   console.log("The number is even");

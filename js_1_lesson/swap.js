@@ -1,5 +1,5 @@
-let x = 3;
-let y = 7;
+const x = 3;
+const y = 7;
 let temp;
 
 temp = x;
