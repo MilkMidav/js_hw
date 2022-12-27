@@ -16,7 +16,7 @@ if (sign === '+') {
 }else if (sign === '*') {
   const calc = num1 * num2;
   console.log("Finally a result:" + calc);
-}else{
+}else {
   console.log("undefined values");
 }
 
