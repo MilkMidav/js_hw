@@ -2,8 +2,8 @@
 
 const input = prompt("Enter your email:");
 
-if ((input.includes('gmail'))) {
+if ((input.endsWith('gmail.com'))) {
   console.log("email provider is gmail")
-}else {
+} else {
   console.log("Undefined")
 }
