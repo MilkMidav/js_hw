@@ -3,29 +3,20 @@
 
 'use strict'
 
-let inputs = [];
+let numbers = prompt("enter a number, to sum enter a 'stop'");
+let result = 0;
 
-for(var i = 0; ; i++) {
-  const numbers = prompt("enter a number, to sum enter a 'stop' ");  
-  if (numbers !== 'stop') {
-    inputs.push(parseInt(numbers));
+while (numbers !== 'stop') {
+  const sum = parseInt(numbers);
+  if (!isNaN(sum)) {
+    result = result + sum;
   } else {
-    break
+    alert("use numeric values");
   }
+  numbers = prompt("enter a number, to sum enter a 'stop'");
 }
 
-let sum = 0;
-
-for (j = 0; j < inputs.length; j++){
-  sum = sum + inputs[j];
-}
-
-if (isNaN(sum)) {
-  console.log('use numeric values!')
-} else {
-  console.log(sum);
-}
-
+alert("sum: " + result);
 
 
 

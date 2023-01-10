@@ -3,14 +3,18 @@
 'use strict'
 
 const str = "025468";
+
+const toNum = parseInt(str);
+
 let newArr = [];
 
 for (let i = 0; i < str.length; i++) {
+  console.log(newArr);
   if (str[i] % 2 === 0 && str[i - 1] % 2 === 0) {
-    console.log(str[i], str[i - 1]);
-    newArr.push(parseInt('-', str[i]));
+    
+    newArr.push('-', str[i]);
   } else {
-    newArr.push(parseInt(str[i]));
+    newArr.push(str[i]);
   }
 }
 

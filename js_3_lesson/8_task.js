@@ -7,17 +7,13 @@ const string = "Kevin, Steve, Jake, Bill, Paul, Susan, Ann"
 
 const arr = string.split(', ');
 
-let secondName = [];
+const arrNames = [];
 
-for (let i = 0; i < arr.length; i++) {
-    if (i % 2 == 1) {
-      secondName.push(arr[i])
-    } else {
-      console.log("undefined values")
-    }
+for (let i = 0; i < arr.length; i += 2) {
+  arrNames.push(arr[i])
 }
 
-const result = secondName.join(', ')
+const result = arrNames.join(', ')
 
 console.log(result)
 

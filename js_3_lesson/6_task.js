@@ -13,11 +13,14 @@ const arr2 = [16, 81, 13, 24, 500];
 const result = [];
 
 for (let i = 0; i < arr1.length; i++) {
-  if (arr1[i] > arr2[i]) {
-    result.push(arr1[i])
-  } else {
-    result.push(arr2[i])
-  }
+  result.push(Math.max(arr1[i], arr2[i]))
 }
 
 console.log(result);
+
+
+/**if (arr1[i] > arr2[i]) {
+  result.push(arr1[i])
+} else {
+  result.push(arr2[i])
+} */

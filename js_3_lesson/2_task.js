@@ -4,9 +4,7 @@
 
 const string = "Check-this-awesome-sentence"
 
-const replace = string.replaceAll('-', ',');
-
-const arr = replace.split(',');
+const arr = string.split('-');
 
 console.log(arr);
 
