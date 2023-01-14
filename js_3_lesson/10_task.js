@@ -3,17 +3,17 @@
 
 'use strict'
 
-let numbers = prompt("enter a number, to sum enter a 'stop'");
+let input = prompt("enter a number, to sum enter a 'stop'");
 let result = 0;
 
-while (numbers !== 'stop') {
-  const sum = parseInt(numbers);
-  if (!isNaN(sum)) {
-    result = result + sum;
+while (input !== 'stop') {
+  const number = parseInt(input);
+  if (!isNaN(number)) {
+    result = result + number;
   } else {
     alert("use numeric values");
   }
-  numbers = prompt("enter a number, to sum enter a 'stop'");
+  input = prompt("enter a number, to sum enter a 'stop'");
 }
 
 alert("sum: " + result);
