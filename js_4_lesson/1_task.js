@@ -1,35 +1,33 @@
-const card = "4000001234567898"
+const card = "4000001234567899"
 
-function calcLuhnMultiplicationAndSubtraction(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    if (i % 2 === 0) {
-      parseInt(arr[i] *= 2);
-      if (arr[i] >= 10) {
-        parseInt(arr[i] -= 9)
-      }
-    }
-  }
-}
-
-function isCardValid(string) {
-
+function isCreditCardValid(string) {
   const arr = string.split("")
   const lastDigit = parseInt(arr.pop());
 
-  calcLuhnMultiplicationAndSubtraction(arr);
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = parseInt(arr[i]);
+    if (i % 2 === 0) {
+      arr[i] *= 2;
+    }
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = parseInt(arr[i]);
+    if (arr[i] >= 10) {
+      arr[i] -= 9
+    }
+  }
   
   let total = 0
 
-  for (let j = 0; j < arr.length; j++) {
-    total = total + parseInt(arr[j]) 
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = parseInt(arr[i]);
+    total = total + arr[i]; 
   }
 
   const result = total + lastDigit;
 
-  if (result % 10 === 0) {
-    return true
-  }
-  return false
+  return result % 10 === 0;
 }
 
-console.log(isCardValid(card))
+console.log(isCreditCardValid(card))
