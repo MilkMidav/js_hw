@@ -5,7 +5,7 @@ contains at least one uppercase letter
 doesn't contain any of these characters: % ? ! * # */
 'use strict'
 
-function isPasswordContainNumber(string) {
+function containsNumber(string) {
   for (let i = 0; i < string.length; i++) {
     const charCode = string[i].charCodeAt();
     if (charCode >= 48 && charCode <= 57) {
@@ -15,50 +15,33 @@ function isPasswordContainNumber(string) {
   return false
 }
 
-function checkBannedSymbol(string) {
+function containsBannedSymbol(string) {
   const includes = string.includes('%') || string.includes('?') || string.includes('!') || string.includes('*') || string.includes('#') || string.includes('/');
 
-  if (!includes) {
-    return true
-  } 
-  return false
-}
-
-function isPasswordLengthValid(string) {
-  if (string.length >= 8 && string.length <= 30) {
-    return true
-  }
-  return false
-}
-
-function isPasswordContainUpperCase(string) {
-  if (string.toLowerCase() !== string) {
-    return true;
-  }
-  return false;
+  return !includes;
 }
 
 
 function isPasswordValid(string) {
-  if (isPasswordLengthValid(string)) {
+  if (string.length >= 8 && string.length <= 30) {
 
-    if (isPasswordContainNumber(string)) {
-  
-      if (checkBannedSymbol(string)) {
-        
-        if (isPasswordContainUpperCase(string)) {
-          return true;
-        }
-        
-      } 
-      
+    if (!containsNumber(string)) {
+      return false;
     } 
+
+    if (!containsBannedSymbol(string)) {
+      return false;    
+    } 
+
+    if (string.toLowerCase() !== string) {
+      return true;
+    }
     
   } 
   return false
 }
 
-const password = 'pass8swWssord';
+const password = 'pass8swwsWsord';
 
 console.log(isPasswordValid(password))
 
