@@ -4,7 +4,7 @@
 'use strict'
 
 function wordsLengthValidation(array, length = 5) {
-  let result = []
+  const result = []
 
   for (let i = 0; i < array.length; i++) {
     if (array[i].length === length) {
