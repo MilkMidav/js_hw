@@ -12,11 +12,11 @@ function wordsLengthValidation(array, length = 5) {
     }
   }
 
-  return result.length === 0 ? console.log('no words of that length were found') : result
+  return result;
 }
 
 const words = ['test', 'delegation', 'forward', 'bliss', 'hop'];
 
-const result = wordsLengthValidation(words, 11)
+const result = wordsLengthValidation(words, 4)
 
 console.log(result)
