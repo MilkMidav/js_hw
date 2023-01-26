@@ -13,7 +13,7 @@ switch (number.substring(3, 6)) {
     break;
   case "063":
   case "093":
-    console.log("Lifecell");
+    console.log("Life");
     break;
   default:
     console.log("Undefined operator");
