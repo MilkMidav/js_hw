@@ -3,6 +3,7 @@
   removeAdjacentCharacters('Hello World!') === 'Helo World!';
   removeAdjacentCharacters('ABC') === 'ABC';
 */
+'use strict'
 
 function removeAdjacentCharacters(string, i = 0, result = '') {
   if (i < string.length - 1){ // 9
@@ -12,7 +13,7 @@ function removeAdjacentCharacters(string, i = 0, result = '') {
       
     return removeAdjacentCharacters(string, i + 1, result);
   }
-  
+
   return result += string[i];
 }
 
