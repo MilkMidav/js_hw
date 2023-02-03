@@ -56,7 +56,6 @@ const songs = [
     }
   }
 ];
-
 function groupByAlbum(array) {
   const result = {};
 
@@ -75,5 +74,27 @@ function groupByAlbum(array) {
   return result;
 }
 
+/**SECOND SOLUTION */
+
+function groupByAlbum2(array) {
+  const result = {};
+
+  for (const song of array) {
+    if (song.album?.title === undefined) {
+      continue;
+    }
+
+    if (song.album.title in result === false) {
+      result[song.album.title] = [];
+    }
+
+    if (song.album?.title) {
+      result[song.album.title].push(song);
+    }
+  }
+
+  return result;
+}
 
 console.log(groupByAlbum(songs));
+console.log(groupByAlbum2(songs));
