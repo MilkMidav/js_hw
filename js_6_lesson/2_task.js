@@ -35,17 +35,15 @@ const applePrice =  [
 ];
 
 function findMostExpensive(array) {
-  let biggest = array[0].price;
-  let result = 0;
+  let biggest = array[0];
 
   for (const object of array) {
-    if (biggest < object.price) {
+    if (biggest.price < object.price) {
       biggest = object.price;
-      result = object;
     }
   }
 
-  return result;
+  return biggest;
 }
 
 console.log(findMostExpensive(applePrice));
