@@ -5,28 +5,22 @@
 'use strict'
 
 function countWords(str) {
-  const arr = str.toLowerCase().replaceAll('\n', '').replaceAll(',', '').split(' ');
+  const arr = str.toLowerCase().replaceAll('\n', ' ').replaceAll(',', '').split(' ');
   const result = {};
 
-  let counter = 0;
-
   for (const word of arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (word === arr[i]) {
-        counter++;
-      } 
+    if (word in result) {
+      result[word] += 1;
+    } else {
+      result[word] = 1
     }
-
-    result[word] = counter; 
-    counter = 0;
   } 
     
   return result;
 }
 
 console.log(countWords(
-`
-When I reminisce ignorance was bliss
+`When I reminisce ignorance was bliss
 Back in the days where the magic exist
 Never be the same as it was, 'cause the way it was
 Just another day in the maze of a myth
@@ -41,6 +35,5 @@ But you don't really know, you know
 It's like love, some people get it
 For some it's just a glove that just never fitted
 For me it's just a pain in the ass
-But I'm addicted to the taste of hoping it could last
-`
+But I'm addicted to the taste of hoping it could last`
 ));
