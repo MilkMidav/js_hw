@@ -15,10 +15,8 @@ const arr = ['x', 'y', 'z'];
 
 function hideProps(object, array) {
   for (const item of array) {
-    for (const key in object) {
-      if (key === item) {
-        delete object[key];
-      }
+    if (item in obj) {
+      delete object[item];
     }
   }
 
