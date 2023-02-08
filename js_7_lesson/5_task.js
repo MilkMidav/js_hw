@@ -2,11 +2,9 @@
 'use strict'
 
 function getNames(array) {
-  const names = array.map(function (person) {
-    return person.name;
-  });
-
-  return names.join(', ');
+  return array.reduce(function (accumulator, person) {
+    return accumulator + (person.name + ', ');
+  }, '');
 }
 
 console.log(getNames([
