@@ -6,22 +6,18 @@ function isMinor(person) {
 }
 
 function removeAdults(array) {
-  const minor = array.filter(isMinor);
-
-  return minor;
+  return array.filter(isMinor);
 }
 
 // OR
 
 function removeAdults2(array) {
-  const minor = array.filter(function (person) {
+  return array.filter(function (person) {
     return person.age < 18;
   });
-
-  return minor;
 }
 
-console.log(removeAdults([
+console.log(removeAdults2([
   {
     id: 1,
     name: 'Kate',

@@ -7,19 +7,15 @@
 'use strict'
 
 function toHTML(person) {
-  const result =`<div> 
+  return `<div> 
         <h2>${person.name}</h2> 
         <p>${person.country}</p>
         <p>${person.age}</p>
       <div>`;
-
-  return result;
 }
 
 function peopleToHTML(array) {
-  const HTML = array.map(toHTML);
-
-  return HTML;
+  return array.map(toHTML);
 }
 
 console.log(peopleToHTML([
