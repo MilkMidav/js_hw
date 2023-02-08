@@ -2,7 +2,7 @@
 'use strict'
 
 function removeOdds(array) {
-  const odd = array.filter(function(element) {
+  const odd = array.filter(function (element) {
     return element % 2 === 0;
   })
 

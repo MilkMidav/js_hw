@@ -2,7 +2,7 @@
 'use strict'
 
 function getNames(array) {
-  const names = array.map(function(person) {
+  const names = array.map(function (person) {
     return person.name;
   });
 

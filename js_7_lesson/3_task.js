@@ -14,7 +14,7 @@ function removeAdults(array) {
 // OR
 
 function removeAdults2(array) {
-  const minor = array.filter(function(person) {
+  const minor = array.filter(function (person) {
     return person.age < 18;
   });
 
