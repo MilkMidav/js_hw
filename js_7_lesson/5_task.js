@@ -1,9 +1,16 @@
 /**Given an array of people, return a string containing all people's names separated by commas: */
 'use strict'
 
+// function getNames(array) {
+//   return array.reduce(function (accumulator, person) {
+//     return accumulator + (person.name + ', ');
+//   }, '');
+// }
+
+
 function getNames(array) {
   return array.reduce(function (accumulator, person) {
-    return accumulator + (person.name + ', ');
+    return accumulator === '' ? person.name : `${accumulator}, ${person.name}`
   }, '');
 }
 
