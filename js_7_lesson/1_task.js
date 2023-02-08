@@ -2,11 +2,9 @@
 'use strict'
 
 function getTotal(array) {
-  const total = array.reduce(function (accumulator, array) {
-    return accumulator + array.price;
+  return array.reduce(function (accumulator, item) {
+    return accumulator + item.price;
   }, 0);
-
-  return total;
 }
 
 console.log(getTotal([
