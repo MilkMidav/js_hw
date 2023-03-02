@@ -24,15 +24,15 @@
  * | LAYLA | 47 | LISBON | UI DESIGNER |
 */
 
-function peopleService(people) {
+function peopleService(people){
   const { headers, parsed } = parse(people);
 
-  function parse (people, delimiter = ',') {
-    const headers = people.slice(0, people.indexOf("\n")).split(delimiter);
+  function parse (people) {
+    const headers = people.slice(0, people.indexOf("\n")).split(',');
     const rows = people.slice(people.indexOf("\n") + 1).split("\n");
   
-    const parsed = rows.map(function (row) {
-      const values = row.split(delimiter);
+    const parsed = rows.map((row) => {
+      const values = row.split(',');
 
       return element = headers.reduce(function (object, header, index) {
         object[header] = values[index];
@@ -40,7 +40,7 @@ function peopleService(people) {
       }, {});
     });
 
-    return {headers, parsed};
+    return { headers, parsed };
   }
 
   const filter = (object) => {
@@ -65,7 +65,7 @@ function peopleService(people) {
     if (sortParam === 'asc') return array.sort();
     
     if (sortParam === 'desc') {
-      return array.sort(function(a, b) {
+      return array.sort((a, b) => {
         if (a > b) return -1; 
         if (a < b) return 1; 
   
@@ -84,7 +84,7 @@ function peopleService(people) {
       array.push(item);
 
       return array;
-    },[]);
+    }, []);
   }
 
   const stringify = () => {
@@ -94,7 +94,7 @@ function peopleService(people) {
       if (index === headers.length - 1) return string + ` | ${header.toUpperCase()} |\n`;
       
       return string + `| ${header.toUpperCase()}`;
-    },``)
+    }, ``)
 
     for (let i = 0; i < parsed.length; i++) {
       const values = Object.values(parsed[i]);
@@ -105,7 +105,7 @@ function peopleService(people) {
         if (index === headers.length - 1) return string + ` | ${value.toUpperCase()} |\n`;
   
         return string + ` | ${value.toUpperCase()}`;
-      },``);
+      }, ``);
 
       result += stringifyParsed;
     }
