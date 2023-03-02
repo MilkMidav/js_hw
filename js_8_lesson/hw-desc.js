@@ -83,11 +83,11 @@ function peopleService(people){
       if (index === headers.length - 1) return string + ` | ${header.toUpperCase()} |\n`;
       
       return string + `| ${header.toUpperCase()}`;
-    }, ``)
+    }, ``);
 
-    for (let i = 0; i < parsed.length; i++) {
-      const values = Object.values(parsed[i]);
-
+    for (const iterator of parsed) {
+      const values = Object.values(iterator);
+      
       const stringifyParsed = values.reduce((string, value, index) => {
         if (index === 0) return string + `| ${value.toUpperCase()}`;
       
@@ -175,6 +175,6 @@ const obj = {
 
 // console.log(parse(people));
 // console.log(filter(obj));
-console.log(sortBy('age', 'asc'))
+// console.log(sortBy('age', 'asc'))
 // console.log(getUniqueBy('name'));
-// console.log(stringify());
+console.log(stringify());
