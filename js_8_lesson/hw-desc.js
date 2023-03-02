@@ -44,7 +44,7 @@ function peopleService(people){
   }
 
   const filter = (object) => {
-    return filteredArray = parsed.filter(obj => {
+    return parsed.filter(obj => {
       for (const [key, value] of Object.entries(object)) {
         if (obj[key] !== value) return false;
       } 
@@ -56,22 +56,11 @@ function peopleService(people){
   const sortBy = (key, sortParam) => {
     if (sortParam !== 'asc' && sortParam !== 'desc') throw new SortError("Argument is not a valid for sorting");
     
-    const array = [];
-    
-    for (let i = 0; i < parsed.length; i++) {
-      array.push(parsed[i][key]);
-    }
+    const array = [...parsed];
   
-    if (sortParam === 'asc') return array.sort();
+    if (sortParam === 'asc') return array.sort((a, b) => a[key] - b[key]);
     
-    if (sortParam === 'desc') {
-      return array.sort((a, b) => {
-        if (a > b) return -1; 
-        if (a < b) return 1; 
-  
-        return 0;  
-      });
-    }
+    if (sortParam === 'desc') return array.sort((a, b) => b[key] - a[key]);
   }
 
   const getUniqueBy = (key) => {
@@ -184,8 +173,8 @@ const obj = {
   city: 'Paris',
 };
 
-console.log(parse(people));
-console.log(filter(obj));
+// console.log(parse(people));
+// console.log(filter(obj));
 console.log(sortBy('age', 'asc'))
-console.log(getUniqueBy('name'));
-console.log(stringify());
+// console.log(getUniqueBy('name'));
+// console.log(stringify());
