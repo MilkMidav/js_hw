@@ -28,9 +28,9 @@ function peopleService(people){
   const { headers, parsed } = parse(people);
 
   function parse (people) {
-    const headers = people.slice(0, people.indexOf("\n")).split(',');
-    const rows = people.slice(people.indexOf("\n") + 1).split("\n");
-  
+    const headers = people.split('\n').slice(0, 1)[0].split(',');
+    const rows = people.split("\n").slice(1);
+
     const parsed = rows.map((row) => {
       const values = row.split(',');
 
@@ -54,7 +54,7 @@ function peopleService(people){
   }
 
   const sortBy = (key, sortParam) => {
-    if (sortParam !== 'asc' && sortParam !== 'desc') throw new SortError("Argument is not a valid for sorting");
+    if (sortParam !== 'asc' && sortParam !== 'desc') throw new Error("Argument is not valid for sorting");
     
     const array = [...parsed];
   
@@ -87,7 +87,7 @@ function peopleService(people){
 
     for (const iterator of parsed) {
       const values = Object.values(iterator);
-      
+
       const stringifyParsed = values.reduce((string, value, index) => {
         if (index === 0) return string + `| ${value.toUpperCase()}`;
       
@@ -172,9 +172,9 @@ const obj = {
   age: '28',
   city: 'Paris',
 };
-
+// console.log(parse(people))
 // console.log(parse(people));
 // console.log(filter(obj));
 // console.log(sortBy('age', 'asc'))
 // console.log(getUniqueBy('name'));
-console.log(stringify());
+// console.log(stringify());
