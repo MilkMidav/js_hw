@@ -144,7 +144,7 @@ Henry,24,Brussels,Sales Representative,1362096000
 Isabelle,27,Rome,Product Manager,1419984000
 Jack,19,Madrid,Graphic Designer,1479326400
 Kennedy,25,Copenhagen,Operations Manager,1362096000
-Leah,33,Berlin,Data Analyst,1447478400`
+Leah,33,Berlin,Data Analyst,1447478400`;
 
 const { printSignUps, printSignUpDates, printSignUpStats, printTeenagers, parse } = peopleService(people);
 
