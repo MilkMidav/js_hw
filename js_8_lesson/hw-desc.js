@@ -24,17 +24,17 @@
  * | LAYLA | 47 | LISBON | UI DESIGNER |
 */
 
-function peopleService(people){
+function peopleService(people) {
   const { headers, parsed } = parse(people);
 
-  function parse (people) {
-    const headers = people.split('\n').slice(0, 1)[0].split(',');
-    const rows = people.split("\n").slice(1);
+  function parse(people) {
+    const rows = people.split("\n");
+    const headers = rows[0].split(',');
 
-    const parsed = rows.map((row) => {
+    const parsed = rows.slice(1).map((row) => {
       const values = row.split(',');
 
-      return element = headers.reduce(function (object, header, index) {
+      return headers.reduce(function (object, header, index) {
         object[header] = values[index];
         return object;
       }, {});
@@ -43,9 +43,9 @@ function peopleService(people){
     return { headers, parsed };
   }
 
-  const filter = (object) => {
+  const filter = (filters) => {
     return parsed.filter(obj => {
-      for (const [key, value] of Object.entries(object)) {
+      for (const [key, value] of Object.entries(filters)) {
         if (obj[key] !== value) return false;
       } 
   
@@ -53,14 +53,14 @@ function peopleService(people){
     });
   }
 
-  const sortBy = (key, sortParam) => {
-    if (sortParam !== 'asc' && sortParam !== 'desc') throw new Error("Argument is not valid for sorting");
+  const sortBy = (key, sortOrder) => {
+    if (sortOrder !== 'asc' && sortOrder !== 'desc') throw new Error("Argument is not valid for sorting");
     
     const array = [...parsed];
   
-    if (sortParam === 'asc') return array.sort((a, b) => a[key] - b[key]);
+    if (sortOrder === 'asc') return array.sort((a, b) => a[key] - b[key]);
     
-    if (sortParam === 'desc') return array.sort((a, b) => b[key] - a[key]);
+    if (sortOrder === 'desc') return array.sort((a, b) => b[key] - a[key]);
   }
 
   const getUniqueBy = (key) => {
@@ -85,8 +85,8 @@ function peopleService(people){
       return string + `| ${header.toUpperCase()}`;
     }, ``);
 
-    for (const iterator of parsed) {
-      const values = Object.values(iterator);
+    for (const item of parsed) {
+      const values = Object.values(item);
 
       const stringifyParsed = values.reduce((string, value, index) => {
         if (index === 0) return string + `| ${value.toUpperCase()}`;
@@ -172,9 +172,9 @@ const obj = {
   age: '28',
   city: 'Paris',
 };
-// console.log(parse(people))
-// console.log(parse(people));
-// console.log(filter(obj));
-// console.log(sortBy('age', 'asc'))
-// console.log(getUniqueBy('name'));
-// console.log(stringify());
+console.log(parse(people))
+console.log(parse(people));
+console.log(filter(obj));
+console.log(sortBy('age', 'asc'))
+console.log(getUniqueBy('name'));
+console.log(stringify());
