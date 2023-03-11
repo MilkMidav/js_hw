@@ -66,7 +66,13 @@ function peopleService(data) {
   const printSignUpDates = () => {
     return parsed.reduce((result, person) => {
       const signUpYear = new Date().getFullYear() - person.registeredAt.getFullYear();
- 
+      if (signUpYear === 1) {
+        return `${result}${person.name} signed up ${signUpYear} year ago \n`;
+      }
+      if (signUpYear === 0) {
+        return `${result}${person.name} signed up less than a year ago \n`;
+      }
+      
       return `${result}${person.name} signed up ${signUpYear} years ago \n`;
     }, ``);
   }
