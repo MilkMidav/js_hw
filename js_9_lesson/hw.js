@@ -59,7 +59,7 @@ function peopleService(data) {
       const signUpYear = new Date().getFullYear() - person.registeredAt.getFullYear();
       const signUpAge = Number(person.age) - signUpYear;
 
-      return result + `${person.name} was ${signUpAge} years old when they signed up \n`;
+      return `${result}${person.name} was ${signUpAge} years old when they signed up \n`;
     }, ``);
   }
 
@@ -67,7 +67,7 @@ function peopleService(data) {
     return parsed.reduce((result, person) => {
       const signUpYear = new Date().getFullYear() - person.registeredAt.getFullYear();
  
-      return result + `${person.name} signed up ${signUpYear} years ago \n`;
+      return `${result}${person.name} signed up ${signUpYear} years ago \n`;
     }, ``);
   }
 
