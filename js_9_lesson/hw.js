@@ -57,9 +57,9 @@ function peopleService(data) {
   const printSignUps = () => {
     return parsed.reduce((list, person) => {
       const signUpYear = new Date().getFullYear() - person.registeredAt.getFullYear();
-      const yearOld = Number(person.age) - signUpYear;
+      const signUpAge = Number(person.age) - signUpYear;
 
-      return list + `${person.name} was ${yearOld} years old when they signed up \n`;
+      return list + `${person.name} was ${signUpAge} years old when they signed up \n`;
     }, ``);
   }
 
