@@ -72,7 +72,7 @@ function peopleService(data) {
       if (signUpYear === 0) {
         return `${result}${person.name} signed up less than a year ago \n`;
       }
-      
+
       return `${result}${person.name} signed up ${signUpYear} years ago \n`;
     }, ``);
   }
@@ -82,12 +82,12 @@ function peopleService(data) {
       const isWeekend = person.registeredAt.getDay() === 6 || person.registeredAt.getDay() === 0;
 
       if (isWeekend) {
-        obj.weekend = (obj.weekend || 0) + 1;
+        obj.weekend = obj.weekend + 1;
         return obj;
       }
-      obj.businessDay = (obj.businessDay || 0) + 1;
+      obj.businessDay = obj.businessDay  + 1;
       return obj;
-    }, {});
+    }, { weekend: 0, businessDay: 0 });
   }
 
   const printTeenagers = () => {
