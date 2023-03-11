@@ -152,10 +152,9 @@ Jack,19,Madrid,Graphic Designer,1479326400
 Kennedy,25,Copenhagen,Operations Manager,1362096000
 Leah,33,Berlin,Data Analyst,1447478400`;
 
-const { printSignUps, printSignUpDates, printSignUpStats, printTeenagers, parse } = peopleService(people);
+const { printSignUps, printSignUpDates, printSignUpStats, printTeenagers } = peopleService(people);
 
 console.log(printSignUps());
 console.log(printSignUpDates());
 console.log(printSignUpStats());
 console.log(printTeenagers());
-// console.log(parse(people));
