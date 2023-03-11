@@ -92,12 +92,12 @@ function peopleService(data) {
 
   const printTeenagers = () => {
     return parsed.reduce((result, person) => {
-      if (person.age < 18) {
-        const yearsToAdult = 18 - person.age;
-        return `${result}${person.name} will be 18 in ${new Date().getFullYear() + yearsToAdult} \n`;
+      if (person.age >= 18) {
+        return result;
       }
-
-      return result;
+      const yearsToAdult = 18 - person.age;
+      
+      return `${result}${person.name} will be 18 in ${new Date().getFullYear() + yearsToAdult} \n`; 
     }, ``);
   }
 
