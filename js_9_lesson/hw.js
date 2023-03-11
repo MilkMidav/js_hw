@@ -41,7 +41,7 @@ function peopleService(data) {
     const parsed = rows.slice(1).map((row) => {
       const values = row.split(',');
 
-      return headers.reduce(function (object, header, index) {
+      return headers.reduce((object, header, index) => {
         if (header.endsWith('At')) {
           object[header] = new Date(Number(values[index]) * 1000);
           return object;
