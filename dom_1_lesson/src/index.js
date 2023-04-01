@@ -20,11 +20,11 @@ function createList(array) {
   array.forEach(item => {
     //card variable that will store 'div' with product information and that we will add to the DOM tree
     let card = document.createElement('div');
-    card.classList.add('flex', 'pt-3', 'items-center')
+    card.classList.add('flex', 'pt-3',)
     
     //info - a variable in which the information in the 'div' will be stored separately from the product images
     let info = document.createElement('div');
-    info.classList.add('pl-3')
+    info.classList.add('pl-3', 'w-full')
 
     //The itemImg variable will create the 'img' tag with the path to the product image 
     let itemImg = document.createElement('img');

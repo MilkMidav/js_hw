@@ -10,7 +10,7 @@
   <title>Open Fashion</title>
 </head>
 
-<body class="font-body box-border">
+<body class="font-body box-border max-w-[375px]">
   <header class="w-full pt-5 pb-2 pl-4 pr-6">
     <div class="flex justify-between items-center">
       <img class="w-6 h-6 cursor-pointer" src="./img/menu.png" alt="menu_img">
@@ -22,50 +22,56 @@
     </div>
   </header>
   <nav class="pt-4 px-4 flex justify-between items-center">
-    <p class="font-normal text-sm">4500 APPAREL</p>
+    <p class="font-normal text-sm leading-4">4500 APPAREL</p>
     <div class="flex items-center justify-between">
       <div class="bg-gray-400 bg-opacity-10 mr-2 px-3 py-2 rounded-full">
-        <select class="rounded-full bg-gray-200 bg-opacity-10 text-sm" name="filter" id="filter">
+        <select class="rounded-full bg-gray-200 bg-opacity-10 leading-3 text-sm text-neutral-600" name="filter"
+          id="filter">
           <option value="value1">Trendy</option>
           <option value="value2" selected>New</option>
         </select>
       </div>
       <div class="bg-gray-400 bg-opacity-10 mr-2 p-2 rounded-full">
-        <img class="w-5" src="./img/grid_view.png" alt="grid_view_img">
+        <img class="w-5 cursor-pointer" src="./img/grid_view.png" alt="grid_view_img">
       </div>
       <div class="bg-gray-400 bg-opacity-10 p-2 rounded-full">
-        <img class="" src="./img/filter.png" alt="shape_img">
+        <img class="cursor-pointer" src="./img/filter.png" alt="shape_img">
       </div>
     </div>
   </nav>
-  <main class="px-4">
+  <main class="pl-4">
     <div class="mt-5" id="item_list"></div>
     <section class="flex items-center pt-14 justify-center">
-      <div class="bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
+      <div
+        class=" cursor-pointer bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
         <p>1</p>
       </div>
-      <div class="bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
+      <div
+        class=" cursor-pointer bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
         <p>2</p>
       </div>
-      <div class="bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
+      <div
+        class=" cursor-pointer bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
         <p>3</p>
       </div>
-      <div class="bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
+      <div
+        class=" cursor-pointer bg-gray-400 bg-opacity-10 mr-3 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
         <p>4</p>
       </div>
-      <div class="bg-gray-400 bg-opacity-10 mr-4 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
+      <div
+        class=" cursor-pointer bg-gray-400 bg-opacity-10 mr-4 text-base font-normal px-3 py-1 hover:bg-black hover:text-white">
         <p>5</p>
       </div>
       <div>
-        <img src="./img/forward.png" alt="right_arrow">
+        <img class="cursor-pointer" src="./img/forward.png" alt="right_arrow">
       </div>
     </section>
   </main>
   <footer class="px-4 pt-9 pb-2">
     <div class="flex items-center justify-center py-6">
-      <img class="w-6 mr-12" src="./img/twitter_logo.png" alt="twitter_logo">
-      <img class="w-6 mr-12" src="./img/Instagram_logo.png" alt="instagram_logo">
-      <img class="w-6 " src="./img/youtube_logo.png" alt="youtube_logo">
+      <img class="cursor-pointer w-6 mr-12" src="./img/twitter_logo.png" alt="twitter_logo">
+      <img class="cursor-pointer w-6 mr-12" src="./img/Instagram_logo.png" alt="instagram_logo">
+      <img class="cursor-pointer w-6 " src="./img/youtube_logo.png" alt="youtube_logo">
     </div>
     <svg class="m-auto" width="125" height="11" viewBox="0 0 125 11" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -73,8 +79,8 @@
         fill="#555555" />
     </svg>
     <div class="text-center py-5 text-lg">
-      <p>support@openui.design</p>
-      <p>+60 825 876</p>
+      <a href="mailto:support@openui.design">support@openui.design</a>
+      <a href="tel:+60 825 876">+60 825 876</a>
       <p>08:00 - 22:00 - Everyday</p>
     </div>
     <svg class="m-auto" width="125" height="11" viewBox="0 0 125 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,9 +89,9 @@
         fill="#555555" />
     </svg>
     <div class="flex justify-center pt-8 text-lg">
-      <p class="mr-14">About</p>
-      <p class="mr-14">Contact</p>
-      <p>Blog</p>
+      <a href="#" class="cursor-pointer mr-14">About</a>
+      <a href="#" class="cursor-pointer mr-14">Contact</a>
+      <a href="#" class="cursor-pointer">Blog</a>
     </div>
     <p class="pt-9 text-center text-sm text-gray-500">Copyright© OpenUI All Rights Reserved.</p>
   </footer>
