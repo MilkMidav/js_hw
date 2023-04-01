@@ -20,11 +20,11 @@ function createList(array) {
   array.forEach(item => {
     //card variable that will store 'div' with product information and that we will add to the DOM tree
     let card = document.createElement('div');
-    card.classList.add('flex', 'pt-3',)
+    card.classList.add('flex', 'pt-3',);
     
     //info - a variable in which the information in the 'div' will be stored separately from the product images
     let info = document.createElement('div');
-    info.classList.add('pl-3', 'w-full')
+    info.classList.add('pl-3', 'w-full');
 
     //The itemImg variable will create the 'img' tag with the path to the product image 
     let itemImg = document.createElement('img');
@@ -34,7 +34,7 @@ function createList(array) {
     //Create a 'p' tag with information about the brand of the product
     let brand  = document.createElement('p');
     brand.textContent = item.brand.toUpperCase();
-    brand.classList.add('tracking-widest', 'text-sm', 'leading-5')
+    brand.classList.add('tracking-widest', 'text-sm', 'leading-5');
 
     //Create a 'p' tag with information about the title of the product
     let title = document.createElement('p');
@@ -51,8 +51,8 @@ function createList(array) {
     divRating.classList.add('flex', 'items-center', 'pt-2')
 
     //In itemImg variable will create the 'img' tag with the path to the star image 
-    let starImg = document.createElement('img')
-    starImg.src = 'img/card_img/star.png'
+    let starImg = document.createElement('img');
+    starImg.src = 'img/card_img/star.png';
 
     //Create a 'p' tag with information about the rating of the product
     let rating = document.createElement('p');
@@ -66,7 +66,7 @@ function createList(array) {
      //In likeImg variable will create the 'img' tag with the path to the like image 
     let likeImg = document.createElement('img');
     likeImg.src = 'img/card_img/like.png';
-    likeImg.classList.add('cursor-pointer')
+    likeImg.classList.add('cursor-pointer');
 
     //In sizeChoicer variable will create the 'div' which will have size selection buttons
     let sizeChoicer = document.createElement('div');
@@ -116,7 +116,7 @@ function createList(array) {
     card.appendChild(info);
 
     //At each iteration we add a product card to the DOM tree
-    parentNode.appendChild(card)
+    parentNode.appendChild(card);
   });
 
   return parentNode;
