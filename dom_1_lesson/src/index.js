@@ -16,15 +16,15 @@ function createList(array) {
   const parentNode = document.getElementById('item_list');
 
   for (const item of array) {
-    const card = document.createElement('div');
-    card.classList.add('flex', 'pt-3',);
+    const container = document.createElement('div');
+    container.classList.add('flex', 'pt-3',);
     
-    const info = document.createElement('div');
-    info.classList.add('pl-3', 'w-full');
+    const infoContainer = document.createElement('div');
+    infoContainer.classList.add('pl-3', 'w-full');
 
-    const itemImg = document.createElement('img');
-    itemImg.src = item.imgSrc;
-    itemImg.classList.add('w-24', 'cursor-pointer');
+    const img = document.createElement('img');
+    img.src = item.imgSrc;
+    img.classList.add('w-24', 'cursor-pointer');
 
     const brand  = document.createElement('p');
     brand.textContent = item.brand.toUpperCase();
@@ -38,8 +38,8 @@ function createList(array) {
     price.textContent = '$' + item.price;
     price.classList.add('text-[#DD8560]', 'text-[15px]');
 
-    const divRating = document.createElement('div');
-    divRating.classList.add('flex', 'items-center', 'pt-2')
+    const ratingContainer = document.createElement('div');
+    ratingContainer.classList.add('flex', 'items-center', 'pt-2')
 
     const starImg = document.createElement('img');
     starImg.src = 'img/card_img/star.png';
@@ -55,8 +55,8 @@ function createList(array) {
     likeImg.src = 'img/card_img/like.png';
     likeImg.classList.add('cursor-pointer');
 
-    const sizeChoicer = document.createElement('div');
-    sizeChoicer.classList.add('flex', 'items-center', 'pt-2');
+    const sizeSelector = document.createElement('div');
+    sizeSelector.classList.add('flex', 'items-center', 'pt-2');
  
     const sizeText = document.createElement('p');
     sizeText.textContent = 'Size';
@@ -74,27 +74,27 @@ function createList(array) {
     sizeL.textContent = 'L';
     sizeL.classList.add('cursor-pointer', 'text-neutral-600', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[9px]', 'py-1', 'text-center');
 
-    sizeChoicer.appendChild(sizeText);
-    sizeChoicer.appendChild(sizeS);
-    sizeChoicer.appendChild(sizeM);
-    sizeChoicer.appendChild(sizeL);
+    sizeSelector.appendChild(sizeText);
+    sizeSelector.appendChild(sizeS);
+    sizeSelector.appendChild(sizeM);
+    sizeSelector.appendChild(sizeL);
 
-    bottomInfo.appendChild(sizeChoicer);
+    bottomInfo.appendChild(sizeSelector);
     bottomInfo.appendChild(likeImg);
 
-    divRating.appendChild(starImg);
-    divRating.appendChild(rating);
+    ratingContainer.appendChild(starImg);
+    ratingContainer.appendChild(rating);
 
-    info.appendChild(brand);
-    info.appendChild(title);
-    info.appendChild(price);
-    info.appendChild(divRating);
-    info.appendChild(bottomInfo);
+    infoContainer.appendChild(brand);
+    infoContainer.appendChild(title);
+    infoContainer.appendChild(price);
+    infoContainer.appendChild(ratingContainer);
+    infoContainer.appendChild(bottomInfo);
     
-    card.appendChild(itemImg);
-    card.appendChild(info);
+    container.appendChild(img);
+    container.appendChild(infoContainer);
 
-    parentNode.appendChild(card);
+    parentNode.appendChild(container);
   }
 
   return parentNode;
