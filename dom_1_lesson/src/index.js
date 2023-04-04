@@ -62,15 +62,15 @@ function createList(array) {
     sizeText.textContent = 'Size';
     sizeText.classList.add('text-neutral-600', 'pr-1.5', 'text-xs');
 
-    const sizeS = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeS = document.createElement('p');
     sizeS.textContent = 'S';
     sizeS.classList.add('cursor-pointer', 'text-neutral-600', 'mr-1.5', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[9px]', 'py-1', 'text-center');
 
-    const sizeM = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeM = document.createElement('p');
     sizeM.textContent = 'M';
     sizeM.classList.add('cursor-pointer', 'text-neutral-600', 'mr-1.5', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[7px]', 'py-1', 'text-center');
 
-    const sizeL = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeL = document.createElement('p');
     sizeL.textContent = 'L';
     sizeL.classList.add('cursor-pointer', 'text-neutral-600', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[9px]', 'py-1', 'text-center');
 
