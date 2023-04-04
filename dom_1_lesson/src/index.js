@@ -15,7 +15,7 @@ const items = [
 function createList(array) {
   const parentNode = document.getElementById('item_list');
 
-  array.forEach(item => {
+  for (const item of array) {
     const card = document.createElement('div');
     card.classList.add('flex', 'pt-3',);
     
@@ -95,7 +95,7 @@ function createList(array) {
     card.appendChild(info);
 
     parentNode.appendChild(card);
-  });
+  }
 
   return parentNode;
 }
