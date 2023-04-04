@@ -14,79 +14,79 @@ const items = [
 
 function createList(array) {
   //assign the parentNode div variable for its id
-  let parentNode = document.getElementById('item_list');
+  const parentNode = document.getElementById('item_list');
 
   //use forEach to create product cards
   array.forEach(item => {
     //card variable that will store 'div' with product information and that we will add to the DOM tree
-    let card = document.createElement('div');
+    const card = document.createElement('div');
     card.classList.add('flex', 'pt-3',);
     
     //info - a variable in which the information in the 'div' will be stored separately from the product images
-    let info = document.createElement('div');
+    const info = document.createElement('div');
     info.classList.add('pl-3', 'w-full');
 
     //The itemImg variable will create the 'img' tag with the path to the product image 
-    let itemImg = document.createElement('img');
+    const itemImg = document.createElement('img');
     itemImg.src = item.imgSrc;
-    itemImg.classList.add('w-24');
+    itemImg.classList.add('w-24', 'cursor-pointer');
 
     //Create a 'p' tag with information about the brand of the product
-    let brand  = document.createElement('p');
+    const brand  = document.createElement('p');
     brand.textContent = item.brand.toUpperCase();
     brand.classList.add('tracking-widest', 'text-sm', 'leading-5');
 
     //Create a 'p' tag with information about the title of the product
-    let title = document.createElement('p');
+    const title = document.createElement('p');
     title.textContent = item.title;
     title.classList.add('text-neutral-600', 'text-sm', 'leading-6');
 
     //Create a 'p' tag with information about the price of the product
-    let price = document.createElement('p');
+    const price = document.createElement('p');
     price.textContent = '$' + item.price;
     price.classList.add('text-[#DD8560]', 'text-[15px]');
 
     //create a 'div' that will store customer ratings
-    let divRating = document.createElement('div');
+    const divRating = document.createElement('div');
     divRating.classList.add('flex', 'items-center', 'pt-2')
 
     //In itemImg variable will create the 'img' tag with the path to the star image 
-    let starImg = document.createElement('img');
+    const starImg = document.createElement('img');
     starImg.src = 'img/card_img/star.png';
 
     //Create a 'p' tag with information about the rating of the product
-    let rating = document.createElement('p');
+    const rating = document.createElement('p');
     rating.textContent = item.rating + ' Ratings';
     rating.classList.add('text-neutral-600', 'text-xs', 'pt-[1px]', 'pl-[3px]');
 
     //In bottomInfo variable will create the 'div' which will contain information about the size of the product
-    let bottomInfo = document.createElement('div');
+    const bottomInfo = document.createElement('div');
     bottomInfo.classList.add('flex', 'items-center', 'justify-between');
 
      //In likeImg variable will create the 'img' tag with the path to the like image 
-    let likeImg = document.createElement('img');
+    const likeImg = document.createElement('img');
     likeImg.src = 'img/card_img/like.png';
     likeImg.classList.add('cursor-pointer');
 
     //In sizeChoicer variable will create the 'div' which will have size selection buttons
-    let sizeChoicer = document.createElement('div');
+    const sizeChoicer = document.createElement('div');
     sizeChoicer.classList.add('flex', 'items-center', 'pt-2');
     
     //Create a 'p' tag with SIZE text
-    let sizeText = document.createElement('p');
+    const sizeText = document.createElement('p');
     sizeText.textContent = 'Size';
     sizeText.classList.add('text-neutral-600', 'pr-1.5', 'text-xs');
 
     //Create three buttons 'L', 'S', 'M' with the corresponding styles
-    let sizeS = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeS = document.createElement('div').appendChild(document.createElement('p'));
     sizeS.textContent = 'S';
     sizeS.classList.add('cursor-pointer', 'text-neutral-600', 'mr-1.5', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[9px]', 'py-1', 'text-center');
 
-    let sizeM = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeM = document.createElement('div').appendChild(document.createElement('p'));
     sizeM.textContent = 'M';
     sizeM.classList.add('cursor-pointer', 'text-neutral-600', 'mr-1.5', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[7px]', 'py-1', 'text-center');
 
-    let sizeL = document.createElement('div').appendChild(document.createElement('p'));
+    const sizeL = document.createElement('div').appendChild(document.createElement('p'));
     sizeL.textContent = 'L';
     sizeL.classList.add('cursor-pointer', 'text-neutral-600', 'text-[10px]', 'border', 'rounded-full', 'border-neutral-300', 'px-[9px]', 'py-1', 'text-center');
 
