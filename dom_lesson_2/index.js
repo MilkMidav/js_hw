@@ -96,8 +96,12 @@ document.addEventListener('keydown', e => {
 
   if (e.key === 'ArrowRight') {
     const targetSlide = currentSlide.nextElementSibling;
-    const targetIndex = slides.findIndex(slide => slide === targetSlide); 
-
+    const targetIndex = slides.findIndex(slide => slide === targetSlide);
+    
+    if (!targetSlide) {
+      targetSlide = slides[0];
+      targetIndex = 0;
+    }
     moveToSlide(currentSlide, targetSlide);
     hideShowButton(slides, prevButton, nextButton, targetIndex);   
   }
@@ -106,6 +110,10 @@ document.addEventListener('keydown', e => {
     const targetSlide = currentSlide.previousElementSibling;
     const targetIndex = slides.findIndex(slide => slide === targetSlide);
 
+    if (!targetSlide) {
+      targetSlide = slides[slides.length - 1];
+      targetIndex = slides.length - 1;
+    }
     moveToSlide(currentSlide, targetSlide);
     hideShowButton(slides, prevButton, nextButton, targetIndex);    
   }
