@@ -1,0 +1,87 @@
+body {
+  padding-top: 100px;
+}
+
+.slider {
+  position: relative;
+  height: 600px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.main_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 32px;
+  color: rgba(255, 255, 255, .5);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.slider__button:hover,
+.slider__button:focus {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.slider__button:focus {
+  outline: 1px solid black;
+}
+
+.slider__button--left {
+  left: 10px;
+}
+
+.slider__button--right {
+  right: 10px;
+}
+
+.slider__nav {
+  display: flex;
+  height: 100px;
+}
+
+.nav__img {
+  box-sizing: border-box;
+  width: 14%;
+  flex-grow: 1;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.nav__img:hover,
+.nav__img:focus {
+  transform: scale(0.9);
+  border: 1px solid rgba(5, 5, 5, .5);
+}
+
+.nav__img:focus {
+  outline: 1px solid rgba(5, 5, 5, .5);
+}
+
+.current_slide {
+  opacity: 0.5;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.current_slide:hover {
+  transform: scale(1);
+  border: none;
+}
+
+.hidden {
+  display: none;
+}
