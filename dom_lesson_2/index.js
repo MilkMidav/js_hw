@@ -95,8 +95,8 @@ document.addEventListener('keydown', e => {
   const currentSlide = container.querySelector('.current_slide');
 
   if (e.key === 'ArrowRight') {
-    const targetSlide = currentSlide.nextElementSibling;
-    const targetIndex = slides.findIndex(slide => slide === targetSlide);
+    let targetSlide = currentSlide.nextElementSibling;
+    let targetIndex = slides.findIndex(slide => slide === targetSlide);
     
     if (!targetSlide) {
       targetSlide = slides[0];
@@ -107,8 +107,8 @@ document.addEventListener('keydown', e => {
   }
 
   if (e.key === 'ArrowLeft') {
-    const targetSlide = currentSlide.previousElementSibling;
-    const targetIndex = slides.findIndex(slide => slide === targetSlide);
+    let targetSlide = currentSlide.previousElementSibling;
+    let targetIndex = slides.findIndex(slide => slide === targetSlide);
 
     if (!targetSlide) {
       targetSlide = slides[slides.length - 1];
