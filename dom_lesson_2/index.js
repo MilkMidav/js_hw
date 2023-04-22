@@ -8,113 +8,123 @@ const img = [
   {id: 7, imgSrc: 'img/slide_7.jpg'},
 ];
 
-function createImgNav(array) {
-  const parentNode = document.getElementById('navigation');
+function createSlider(array) {
+  const currentSlide = {
+    stepForward: 0,
+    stepBack : 0,
+    visibleSlides: 4,
+  };
 
-  for(const item of array) {
-    const img = document.createElement('img');
-    img.src = item.imgSrc;
-    img.classList.add('nav__img');
+  const createSlideNav = (array) =>  {
+    const stepForward = currentSlide.stepForward
+    const stepBack = currentSlide.stepBack;
+    const toShowFromStart = currentSlide.visibleSlides - (array.length - stepForward);
+    const toShowFromEnd = (array.length - stepBack) - currentSlide.visibleSlides;
 
-    parentNode.appendChild(img);
-  }
+    if (currentSlide.stepBack > 0 && currentSlide.stepBack <= currentSlide.visibleSlides) {
+      return [...array.slice(array.length - stepBack, array.length), ...array.slice(0, toShowFromEnd + 1)];
+    }
 
-  return parentNode;
-}
+    if (array.length - stepForward >= currentSlide.visibleSlides) {
+      return array.slice(stepForward, stepForward + currentSlide.visibleSlides);
+    }
 
-function hideShowButton(slides, prevButton, nextButton, targetIndex) {
-  if (targetIndex === 0) {
-    prevButton.classList.add('hidden');
-    nextButton.classList.remove('hidden');
-  }
+    return [...array.slice(stepForward, stepForward + currentSlide.visibleSlides), ...array.slice(0, toShowFromStart)];
+  };
 
-  if (targetIndex === slides.length - 1) {
-    nextButton.classList.add('hidden');
-    prevButton.classList.remove('hidden');
-  }
+  const updateSliderImages = (array) => {
+    const parentNode = document.getElementById('navigation');
+    const mainSlide = document.querySelector('.main_img');
+    const images = parentNode.querySelectorAll('img');
 
-  if (targetIndex > 0 && targetIndex < slides.length - 1) {
-    prevButton.classList.remove('hidden');
-    nextButton.classList.remove('hidden');
-  }
-
-  return;
-}
-
-const mainSlide = document.querySelector('.main_img');
-mainSlide.src = img[0].imgSrc;
-
-const moveToSlide = (currentSlide, targetSlide) => {
-  currentSlide.classList.remove('current_slide');
-  targetSlide.classList.add('current_slide');
-  mainSlide.src = targetSlide.src;
-
-  return;
-}
-
-createImgNav(img);
-
-const container = document.getElementById('navigation');
-const firstChild = container.querySelector(':first-child');
-firstChild.classList.add('current_slide');
-
-const slides = Array.from(container.children);
-
-const nextButton = document.querySelector('.slider__button--right');
-const prevButton = document.querySelector('.slider__button--left');
-
-nextButton.addEventListener('click', e =>{
-  const currentSlide = container.querySelector('.current_slide');
-  const targetSlide = currentSlide.nextElementSibling;
-  const targetIndex = slides.findIndex(slide => slide === targetSlide);
-
-  moveToSlide(currentSlide, targetSlide);
-  hideShowButton(slides, prevButton, nextButton, targetIndex);
-});
-
-prevButton.addEventListener('click', e =>{
-  const currentSlide = container.querySelector('.current_slide');
-  const targetSlide = currentSlide.previousElementSibling;
-  const targetIndex = slides.findIndex(slide => slide === targetSlide);
-
-  moveToSlide(currentSlide, targetSlide);
-  hideShowButton(slides, prevButton, nextButton, targetIndex);
-});
-
-container.addEventListener('click', e => {
-  const currentSlide = container.querySelector('.current_slide');
-  const targetImg = e.target;
-  const targetIndex = slides.findIndex(slide => slide === targetImg);
-  const targetSlide = slides[targetIndex];
-
-  moveToSlide(currentSlide, targetSlide);
-  hideShowButton(slides, prevButton, nextButton, targetIndex);
-});
-
-document.addEventListener('keydown', e => {
-  const currentSlide = container.querySelector('.current_slide');
-
-  if (e.key === 'ArrowRight') {
-    let targetSlide = currentSlide.nextElementSibling;
-    let targetIndex = slides.findIndex(slide => slide === targetSlide);
+    mainSlide.src = array[0].imgSrc;
+    for (let i = 0; i < array.length; i++) {
+      const img = document.createElement('img');
     
-    if (!targetSlide) {
-      targetSlide = slides[0];
-      targetIndex = 0;
+      img.src = array[i].imgSrc;
+      img.classList.add('nav__img');
+      parentNode.appendChild(img);
+
+      if (i === 0) {
+        img.classList.add('nav__img--active');
+      }
     }
-    moveToSlide(currentSlide, targetSlide);
-    hideShowButton(slides, prevButton, nextButton, targetIndex);   
+    images.forEach(img => {
+      img.remove();
+    });
+
+    return;
   }
 
-  if (e.key === 'ArrowLeft') {
-    let targetSlide = currentSlide.previousElementSibling;
-    let targetIndex = slides.findIndex(slide => slide === targetSlide);
+  const parentNode = document.getElementById('navigation');
+  const nextButton = document.querySelector('.slider__button--right');
+  const prevButton = document.querySelector('.slider__button--left');
+  
+  
+  updateSliderImages(createSlideNav(array))
 
-    if (!targetSlide) {
-      targetSlide = slides[slides.length - 1];
-      targetIndex = slides.length - 1;
+  nextButton.addEventListener('click', e =>{
+    currentSlide.stepForward += 1;
+    currentSlide.stepBack -= 1;
+
+    if (currentSlide.stepForward === array.length) {
+      currentSlide.stepForward = 0;
+      currentSlide.stepBack = 0;
     }
-    moveToSlide(currentSlide, targetSlide);
-    hideShowButton(slides, prevButton, nextButton, targetIndex);    
-  }
-});
+
+    updateSliderImages(createSlideNav(array));
+  });
+
+  prevButton.addEventListener('click', e =>{
+    currentSlide.stepBack += 1;
+    currentSlide.stepForward -= 1;
+
+    if (currentSlide.stepBack === array.length) {
+      currentSlide.stepBack = 0;
+      currentSlide.stepForward = 0;
+    }
+  
+    updateSliderImages(createSlideNav(array));
+  });
+
+  parentNode.addEventListener('click', e => {
+    const slides = Array.from(parentNode.children);
+    const targetImg = e.target;
+    const targetIndex = slides.findIndex(slide => slide === targetImg);
+    currentSlide.stepForward += targetIndex;
+
+    if (currentSlide.stepForward >= array.length) currentSlide.stepForward = currentSlide.stepForward - array.length
+
+    updateSliderImages(createSlideNav(array))
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') {
+      currentSlide.stepForward += 1;
+      currentSlide.stepBack -= 1;
+  
+      if (currentSlide.stepForward === array.length) {
+        currentSlide.stepForward = 0;
+        currentSlide.stepBack = 0;
+      }
+  
+      updateSliderImages(createSlideNav(array));
+    }
+  
+    if (e.key === 'ArrowLeft') {
+      currentSlide.stepBack += 1;
+      currentSlide.stepForward -= 1;
+  
+      if (currentSlide.stepBack === array.length) {
+        currentSlide.stepBack = 0;
+        currentSlide.stepForward = 0;
+      }
+    
+      updateSliderImages(createSlideNav(array))
+    }
+  });
+  
+  return;
+}
+
+createSlider(img);

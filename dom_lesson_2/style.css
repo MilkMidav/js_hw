@@ -7,23 +7,29 @@ body {
   background: #303843;
 }
 
+
+
 .slider {
-  position: relative;
-  height: 600px;
-  width: 700px;
+  width: 800px;
   margin: 0 auto;
 }
 
-.main_img {
+.container {
+  height: 600px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main_img {
+  box-sizing: border-box;
+  width: 76%;
   height: 100%;
   object-fit: cover;
 }
 
 .slider__button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: none;
   border: none;
   padding: 15px 20px;
@@ -54,20 +60,16 @@ body {
 
 .slider__nav {
   box-sizing: border-box;
-  white-space: nowrap;
-  overflow: hidden;
+  margin-top: 10px;
   display: flex;
-  max-width: 100%;
-  height: 100px;
+  align-items: center;
+  width: 100%;
 }
 
 .nav__img {
-  margin-top: 5px;
   box-sizing: border-box;
-  width: 100%;
-  max-width: calc(100% / 4 - 30px / 4);
+  width: calc(100% / 4);
   margin-left: 10px;
-  height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
   cursor: pointer;
@@ -97,22 +99,6 @@ body {
   border: none;
 }
 
-.hidden {
-  display: none;
-}
-
-@media screen and (max-width: 748px) {
-  .nav__img {
-    max-width: calc(100% / 3);
-  }
-
-  .slider__nav {
-    height: 120px;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .slider__nav {
-    display: none;
-  }
+.nav__img--active {
+  border: #95e609 5px solid;
 }
