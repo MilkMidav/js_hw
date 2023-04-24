@@ -1,19 +1,18 @@
 const imgData = [
-  {id: 1, imgSrc: 'img/slide_1.jpg'},
-  {id: 2, imgSrc: 'img/slide_2.jpg'},
-  {id: 3, imgSrc: 'img/slide_3.jpg'},
-  {id: 4, imgSrc: 'img/slide_4.jpg'},
-  {id: 5, imgSrc: 'img/slide_5.jpg'},
-  {id: 6, imgSrc: 'img/slide_6.jpg'},
-  {id: 7, imgSrc: 'img/slide_7.jpg'},
+  { id: 1, src: 'img/slide_1.jpg' },
+  { id: 2, src: 'img/slide_2.jpg' },
+  { id: 3, src: 'img/slide_3.jpg' },
+  { id: 4, src: 'img/slide_4.jpg' },
+  { id: 5, src: 'img/slide_5.jpg' },
+  { id: 6, src: 'img/slide_6.jpg' },
+  { id: 7, src: 'img/slide_7.jpg' },
 ];
 
-function createSlider(array) {
-  const slider = document.querySelector('.slider');
+function createSlider(array, id) {
+  const slider = document.querySelector(`#${id}`);
 
   const galleryContainer = document.createElement('div');
   galleryContainer.classList.add('slider__gallery');
-  galleryContainer.setAttribute('id', 'gallery');
 
   const navContainer = document.createElement('div');
   navContainer.classList.add('slider__nav_container');
@@ -37,7 +36,7 @@ function createSlider(array) {
   slider.appendChild(navContainer);
   slider.appendChild(galleryContainer);
 
-  const slidesGallery = document.getElementById('gallery');
+  const slidesGallery = document.querySelector('.slider__gallery');
   const nextButton = document.querySelector('.slider__button--right');
   const prevButton = document.querySelector('.slider__button--left');
 
@@ -47,16 +46,10 @@ function createSlider(array) {
     visibleSlides: 4,
   };
 
-  if (window.matchMedia("(max-width: 768px)").matches) {
-    currentSlide.visibleSlides = 3;
-  } 
-
-  if (window.matchMedia("(max-width: 468px)").matches) {
-    currentSlide.visibleSlides = 2;
-  } 
-
-  console.log(window.matchMedia("(max-width: 768px)").matches)
-
+  if (window.matchMedia("(max-width: 768px)").matches)  currentSlide.visibleSlides = 3;
+   
+  if (window.matchMedia("(max-width: 468px)").matches) currentSlide.visibleSlides = 2;
+  
   const createSlideNav = (array) =>  {
     const stepForward = currentSlide.stepForward;
     const stepBack = currentSlide.stepBack;
@@ -77,15 +70,15 @@ function createSlider(array) {
   const updateSliderImages = (array) => {
     const visibleSlidesArr = createSlideNav(array);
      
-    const slidesGallery = document.getElementById('gallery');
+    const slidesGallery = document.querySelector('.slider__gallery');
     const mainSlide = document.querySelector('.main_img');
     const images = slidesGallery.querySelectorAll('img');
 
-    mainSlide.src = visibleSlidesArr[0].imgSrc;
+    mainSlide.src = visibleSlidesArr[0].src;
     for (let i = 0; i < visibleSlidesArr.length; i++) {
       const img = document.createElement('img');
     
-      img.src = visibleSlidesArr[i].imgSrc;
+      img.src = visibleSlidesArr[i].src;
       img.classList.add('gallery__img');
       slidesGallery.appendChild(img);
 
@@ -98,7 +91,7 @@ function createSlider(array) {
     return;
   }
 
-  nextButton.addEventListener('click', e =>{
+  nextButton.addEventListener('click', () =>{
     currentSlide.stepForward += 1;
     currentSlide.stepBack -= 1;
 
@@ -110,7 +103,7 @@ function createSlider(array) {
     updateSliderImages(array);
   });
 
-  prevButton.addEventListener('click', e =>{
+  prevButton.addEventListener('click', () =>{
     currentSlide.stepBack += 1;
     currentSlide.stepForward -= 1;
 
@@ -164,4 +157,4 @@ function createSlider(array) {
   return;
 }
 
-createSlider(imgData);
+createSlider(imgData, 'slider');
