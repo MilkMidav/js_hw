@@ -44,6 +44,24 @@ function createSlider(id, array) {
   if (window.matchMedia("(max-width: 768px)").matches) currentSlide.visibleSlides = 3;
    
   if (window.matchMedia("(max-width: 468px)").matches) currentSlide.visibleSlides = 2;
+
+  const move = (direction) => {
+    if (direction === 'next') {
+      currentSlide.selectedSlide += 1;
+
+      if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
+      
+      return;
+    }
+
+    if (direction === 'prev') {
+      currentSlide.selectedSlide -= 1;
+
+      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
+
+      return;
+    }
+  }
   
   const createSlidesArray = (array) =>  {
     const { selectedSlide } = currentSlide;
@@ -58,10 +76,9 @@ function createSlider(id, array) {
 
   const updateSliderImages = (array) => {
     const updatedSlides = createSlidesArray(array);
+    const slideArr = [];
   
     mainImg.src = updatedSlides[0].src;
-
-    galleryContainer.replaceChildren();
 
     updatedSlides.forEach((slide, index) => {
       const img = document.createElement('img');
@@ -71,26 +88,21 @@ function createSlider(id, array) {
 
       if (index === 0) img.classList.add('gallery__img--active');
       
-      galleryContainer.appendChild(img);
+      slideArr.push(img)
     });
-
+    galleryContainer.replaceChildren(...slideArr);
+    
     return;
   }
 
   nextButton.addEventListener('click', () =>{
-    currentSlide.selectedSlide += 1;
-  
-    if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
-     
+    move('next');
     updateSliderImages(array);
   });
   
   
   prevButton.addEventListener('click', () =>{
-    currentSlide.selectedSlide -= 1;
-  
-    if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
-    
+    move('prev');
     updateSliderImages(array);
   });
 
@@ -110,18 +122,12 @@ function createSlider(id, array) {
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') {
-      currentSlide.selectedSlide += 1;
-  
-      if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
-  
+      move('next');
       updateSliderImages(array);
     }
   
     if (e.key === 'ArrowLeft') {
-      currentSlide.selectedSlide -= 1;
-  
-      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
-      
+      move('prev');
       updateSliderImages(array)
     }
   });
