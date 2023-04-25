@@ -35,9 +35,9 @@ function createSlider(id, array) {
   slider.appendChild(nav);
   slider.appendChild(galleryContainer);
 
-  const slidesGallery = document.querySelector('.slider__gallery');
-  const nextButton = document.querySelector('.slider__button--right');
-  const prevButton = document.querySelector('.slider__button--left');
+  const slidesGallery = document.querySelectorAll('.slider__gallery');
+  const nextButton = document.querySelectorAll('.slider__button--right');
+  const prevButton = document.querySelectorAll('.slider__button--left');
 
   const currentSlide = {
     selectedSlide: 0,
@@ -61,60 +61,63 @@ function createSlider(id, array) {
 
   const updateSliderImages = (array) => {
     const updatedSlides = createSlidesArray(array);
-     
-    const slidesGallery = document.querySelector('.slider__gallery');
-    const mainSlide = document.querySelector('.slider__hero');
-    const images = slidesGallery.querySelectorAll('img');
+    const slidesGallery = document.querySelectorAll('.slider__gallery');
+    const mainSlide = document.querySelectorAll('.slider__hero');
+    
+    mainSlide.forEach((slide) => {
+      slide.src = updatedSlides[0].src;
+    });
 
-    mainSlide.src = updatedSlides[0].src;
+    slidesGallery.forEach(gallery => {
+      gallery.replaceChildren();
 
-    const img = document.createElement('img');
+      updatedSlides.forEach((slide, index) => {
+        const img = document.createElement('img');
+    
+        img.src = slide.src;
+        img.classList.add('gallery__img');
 
-    img.src = updatedSlides[0].src;
-    img.classList.add('gallery__img', 'gallery__img--active');
-    slidesGallery.appendChild(img);
-
-    for (const slide of updatedSlides.slice(1)) {
-      const img = document.createElement('img');
-
-      img.src = slide.src;
-      img.classList.add('gallery__img');
-      slidesGallery.appendChild(img);
-    }
-
-    images.forEach(img => {
-      img.remove();
+        if (index === 0) img.classList.add('gallery__img--active');
+      
+        gallery.appendChild(img);
+      });
     });
 
     return;
   }
 
-  nextButton.addEventListener('click', () =>{
-    currentSlide.selectedSlide += 1;
-
-    if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
-   
-    updateSliderImages(array);
-  });
-
-  prevButton.addEventListener('click', () =>{
-    currentSlide.selectedSlide -= 1;
-
-    if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
+  nextButton.forEach(button => {
+    button.addEventListener('click', () =>{
+      currentSlide.selectedSlide += 1;
   
-    updateSliderImages(array);
-  });
+      if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
+     
+      updateSliderImages(array);
+    });
+  })
+  
+  prevButton.forEach(button => {
+    button.addEventListener('click', () =>{
+      currentSlide.selectedSlide -= 1;
+  
+      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
+    
+      updateSliderImages(array);
+    });
+  })
 
-  slidesGallery.addEventListener('click', e => {
-    const slides = Array.from(slidesGallery.children);
-    const targetImg = e.target;
-    const targetIndex = slides.findIndex(slide => slide === targetImg);
-    currentSlide.selectedSlide += targetIndex;
-
-    if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
-
-    updateSliderImages(array);
-  });
+  slidesGallery.forEach(gallery => {
+    gallery.addEventListener('click', e => {
+      const slides = Array.from(gallery.children);
+      const targetImg = e.target;
+      const targetIndex = slides.findIndex(slide => slide === targetImg);
+      currentSlide.selectedSlide += targetIndex;
+  
+      if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
+  
+      updateSliderImages(array);
+    });
+  })
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') {
