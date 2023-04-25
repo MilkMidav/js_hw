@@ -17,27 +17,24 @@ function createSlider(id, array) {
   const nav = document.createElement('div');
   nav.classList.add('slider__nav_container');
 
-  const nextButtonElem = document.createElement('button');
-  const prevButtonElem = document.createElement('button');
-  nextButtonElem.textContent = '⇒';
-  prevButtonElem.textContent = '⇐';
-  nextButtonElem.classList.add('slider__button', 'slider__button--right');
-  prevButtonElem.classList.add('slider__button', 'slider__button--left');
+  const nextButton = document.createElement('button');
+  const prevButton = document.createElement('button');
+
+  nextButton.textContent = '⇒';
+  prevButton.textContent = '⇐';
+  nextButton.classList.add('slider__button', 'slider__button--right');
+  prevButton.classList.add('slider__button', 'slider__button--left');
 
   const mainImg = document.createElement('img');
   mainImg.classList.add('slider__hero');
   mainImg.alt = 'slider__hero';
   
-  nav.appendChild(prevButtonElem);
+  nav.appendChild(prevButton);
   nav.appendChild(mainImg);
-  nav.appendChild(nextButtonElem);
+  nav.appendChild(nextButton);
 
   slider.appendChild(nav);
   slider.appendChild(galleryContainer);
-
-  const slidesGallery = document.querySelectorAll('.slider__gallery');
-  const nextButton = document.querySelectorAll('.slider__button--right');
-  const prevButton = document.querySelectorAll('.slider__button--left');
 
   const currentSlide = {
     selectedSlide: 0,
@@ -61,63 +58,55 @@ function createSlider(id, array) {
 
   const updateSliderImages = (array) => {
     const updatedSlides = createSlidesArray(array);
-    const slidesGallery = document.querySelectorAll('.slider__gallery');
-    const mainSlide = document.querySelectorAll('.slider__hero');
+  
+    mainImg.src = updatedSlides[0].src;
+
+    galleryContainer.replaceChildren();
+
+    updatedSlides.forEach((slide, index) => {
+      const img = document.createElement('img');
     
-    mainSlide.forEach((slide) => {
-      slide.src = updatedSlides[0].src;
-    });
+      img.src = slide.src;
+      img.classList.add('gallery__img');
 
-    slidesGallery.forEach(gallery => {
-      gallery.replaceChildren();
-
-      updatedSlides.forEach((slide, index) => {
-        const img = document.createElement('img');
-    
-        img.src = slide.src;
-        img.classList.add('gallery__img');
-
-        if (index === 0) img.classList.add('gallery__img--active');
+      if (index === 0) img.classList.add('gallery__img--active');
       
-        gallery.appendChild(img);
-      });
+      galleryContainer.appendChild(img);
     });
 
     return;
   }
 
-  nextButton.forEach(button => {
-    button.addEventListener('click', () =>{
-      currentSlide.selectedSlide += 1;
+  nextButton.addEventListener('click', () =>{
+    currentSlide.selectedSlide += 1;
   
-      if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
+    if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
      
-      updateSliderImages(array);
-    });
-  })
+    updateSliderImages(array);
+  });
   
-  prevButton.forEach(button => {
-    button.addEventListener('click', () =>{
-      currentSlide.selectedSlide -= 1;
   
-      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
+  prevButton.addEventListener('click', () =>{
+    currentSlide.selectedSlide -= 1;
+  
+    if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
     
-      updateSliderImages(array);
-    });
-  })
+    updateSliderImages(array);
+  });
 
-  slidesGallery.forEach(gallery => {
-    gallery.addEventListener('click', e => {
-      const slides = Array.from(gallery.children);
-      const targetImg = e.target;
-      const targetIndex = slides.findIndex(slide => slide === targetImg);
-      currentSlide.selectedSlide += targetIndex;
+
+
+  galleryContainer.addEventListener('click', e => {
+    const slides = Array.from(galleryContainer.children);
+    const targetImg = e.target;
+    const targetIndex = slides.findIndex(slide => slide === targetImg);
+    currentSlide.selectedSlide += targetIndex;
   
-      if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
+    if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
   
-      updateSliderImages(array);
-    });
-  })
+    updateSliderImages(array);
+  });
+
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') {
