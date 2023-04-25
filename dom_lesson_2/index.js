@@ -40,8 +40,7 @@ function createSlider(id, array) {
   const prevButton = document.querySelector('.slider__button--left');
 
   const currentSlide = {
-    stepForward: 0,
-    stepBack : 0,
+    selectedSlide: 0,
     visibleSlides: 4,
   };
 
@@ -50,19 +49,14 @@ function createSlider(id, array) {
   if (window.matchMedia("(max-width: 468px)").matches) currentSlide.visibleSlides = 2;
   
   const createSlidesArray = (array) =>  {
-    const { stepForward, stepBack } = currentSlide;
-    const toShowFromStart = currentSlide.visibleSlides - (array.length - stepForward);
-    const toShowFromEnd = (array.length - stepBack) - currentSlide.visibleSlides;
+    const { selectedSlide } = currentSlide;
+    const toShowFromStart = currentSlide.visibleSlides - (array.length - selectedSlide);
 
-    if (currentSlide.stepBack > 0 && currentSlide.stepBack <= currentSlide.visibleSlides) {
-      return [...array.slice(array.length - stepBack, array.length), ...array.slice(0, toShowFromEnd + 1)];
+    if (array.length - selectedSlide >= currentSlide.visibleSlides) {
+      return array.slice(selectedSlide, selectedSlide + currentSlide.visibleSlides);
     }
 
-    if (array.length - stepForward >= currentSlide.visibleSlides) {
-      return array.slice(stepForward, stepForward + currentSlide.visibleSlides);
-    }
-
-    return [...array.slice(stepForward, stepForward + currentSlide.visibleSlides), ...array.slice(0, toShowFromStart)];
+    return [...array.slice(selectedSlide, array.length), ...array.slice(0, toShowFromStart)];
   };
 
   const updateSliderImages = (array) => {
@@ -96,25 +90,17 @@ function createSlider(id, array) {
   }
 
   nextButton.addEventListener('click', () =>{
-    currentSlide.stepForward += 1;
-    currentSlide.stepBack -= 1;
+    currentSlide.selectedSlide += 1;
 
-    if (currentSlide.stepForward === array.length) {
-      currentSlide.stepForward = 0;
-      currentSlide.stepBack = 0;
-    }
+    if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
    
     updateSliderImages(array);
   });
 
   prevButton.addEventListener('click', () =>{
-    currentSlide.stepBack += 1;
-    currentSlide.stepForward -= 1;
+    currentSlide.selectedSlide -= 1;
 
-    if (currentSlide.stepBack === array.length) {
-      currentSlide.stepBack = 0;
-      currentSlide.stepForward = 0;
-    }
+    if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
   
     updateSliderImages(array);
   });
@@ -123,35 +109,27 @@ function createSlider(id, array) {
     const slides = Array.from(slidesGallery.children);
     const targetImg = e.target;
     const targetIndex = slides.findIndex(slide => slide === targetImg);
-    currentSlide.stepForward += targetIndex;
+    currentSlide.selectedSlide += targetIndex;
 
-    if (currentSlide.stepForward >= array.length) currentSlide.stepForward = currentSlide.stepForward - array.length
+    if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
 
     updateSliderImages(array);
   });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') {
-      currentSlide.stepForward += 1;
-      currentSlide.stepBack -= 1;
+      currentSlide.selectedSlide += 1;
   
-      if (currentSlide.stepForward === array.length) {
-        currentSlide.stepForward = 0;
-        currentSlide.stepBack = 0;
-      }
+      if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
   
       updateSliderImages(array);
     }
   
     if (e.key === 'ArrowLeft') {
-      currentSlide.stepBack += 1;
-      currentSlide.stepForward -= 1;
+      currentSlide.selectedSlide -= 1;
   
-      if (currentSlide.stepBack === array.length) {
-        currentSlide.stepBack = 0;
-        currentSlide.stepForward = 0;
-      }
-    
+      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
+      
       updateSliderImages(array)
     }
   });
