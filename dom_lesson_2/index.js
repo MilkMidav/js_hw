@@ -9,7 +9,7 @@ const imgData = [
 ];
 
 function createSlider(id, array) {
-  const slider = document.getElementById(`${id}`);
+  const slider = document.getElementById(id);
 
   const galleryContainer = document.createElement('div');
   galleryContainer.classList.add('slider__gallery');
@@ -50,17 +50,17 @@ function createSlider(id, array) {
       currentSlide.selectedSlide += 1;
 
       if (currentSlide.selectedSlide === array.length) currentSlide.selectedSlide = 0;
-      
-      return;
     }
 
     if (direction === 'prev') {
       currentSlide.selectedSlide -= 1;
 
-      if (currentSlide.selectedSlide < 0) currentSlide.selectedSlide = array.length - 1;
-
-      return;
+      if (currentSlide.selectedSlide < 0) {
+        currentSlide.selectedSlide = array.length - 1;
+      }
     }
+
+    return;
   }
   
   const createSlidesArray = (array) =>  {
@@ -91,7 +91,7 @@ function createSlider(id, array) {
       slideArr.push(img)
     });
     galleryContainer.replaceChildren(...slideArr);
-    
+
     return;
   }
 
@@ -106,19 +106,17 @@ function createSlider(id, array) {
     updateSliderImages(array);
   });
 
-
-
   galleryContainer.addEventListener('click', e => {
     const slides = Array.from(galleryContainer.children);
     const targetImg = e.target;
     const targetIndex = slides.findIndex(slide => slide === targetImg);
     currentSlide.selectedSlide += targetIndex;
   
-    if (currentSlide.selectedSlide >= array.length) currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
-  
+    if (currentSlide.selectedSlide >= array.length) {
+      currentSlide.selectedSlide = currentSlide.selectedSlide - array.length
+    }
     updateSliderImages(array);
   });
-
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') {
