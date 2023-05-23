@@ -7,7 +7,7 @@ const robot = {
     } else {
       this.isActive = true;
       console.log(`Started walking for ${timeout} seconds`);
-      
+
       setTimeout(() => {
         console.log('Ended walking');
         this.setActionsTimeout();
@@ -39,6 +39,8 @@ const robot = {
         console.log(`Ended ${action.action}`);
         return this.setActionsTimeout();
       }, action.timeout * 1000);
+    } else {
+      console.log('No tasks to execute')
     }
 
     return;
