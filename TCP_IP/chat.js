@@ -1,9 +1,7 @@
 const net = require('net');
 
 const hostname = 'localhost';
-const username = process.argv[2];
-const port = process.argv[3];
-const receiverPort = process.argv[4];
+const [username, port, receiverPort] = process.argv.slice(2);
 
 const server = net.createServer((socket) => {
   socket.on('data', data => {
