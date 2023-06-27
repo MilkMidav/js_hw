@@ -4,17 +4,12 @@ function startChat() {
   const hostname = 'localhost';
   const [username, port, receiverPort] = process.argv.slice(2);
 
-  let connect = {
-    state: null,
-  }
-
   const server = net.createServer((socket) => {
     socket.on('data', data => {
-      const { message, sender } = JSON.parse(data.toString());
-      
-      if (!connect.state) {
-        console.log(`${message}`);
-        connect.state = true;
+      const { message, sender, handshake } = JSON.parse(data.toString());
+
+      if (handshake && !message) {
+        console.log(`${sender} has entered the chat room`);
       } else {
         console.log(`${sender}: ${message}`);
       }
@@ -25,15 +20,15 @@ function startChat() {
     console.log(`Accepting connecting on ${hostname}:${port}`);
   });
   
-  (function connectToServer() {
+  function connectToServer() {
     const socket = new net.Socket();
     
     socket.connect(receiverPort, hostname, () => {
       console.log(`Connected to a friend at ${hostname}:${receiverPort}`);
       
       const messageConnections = {
-        message: `${username} has entered the chat room`,
-        sender: username
+        sender: username,
+        handshake: true
       };
 
       socket.write(JSON.stringify(messageConnections));
@@ -59,7 +54,9 @@ function startChat() {
     });
     
     return;
-  })();
+  }
+
+  connectToServer();
 }
 
 startChat();
