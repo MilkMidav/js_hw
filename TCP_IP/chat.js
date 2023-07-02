@@ -1,9 +1,8 @@
 const net = require('net');
 
-const hostname = 'localhost';
 const [username, port, receiverPort] = process.argv.slice(2);
 
-function startChat(username, port, receiverPort, hostname) {
+function startChat(username, port, receiverPort, hostname = 'localhost') {
   const server = net.createServer((socket) => {
     socket.on('data', data => {
       const { message, sender, handshake } = JSON.parse(data.toString());
