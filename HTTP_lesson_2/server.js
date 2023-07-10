@@ -22,60 +22,70 @@ const html = `
 
 const booksData = [
   {
+    id: 1,
     author: 'Adam Hochschild',
     title: 'American Midnight',
     releaseDate: 'October 4, 2022',
     path: 'img/book_american_midnight_hochschild.jpg',
   },
   {
+    id: 2,
     author: 'Erik Larson',
     title: 'The Devil in the White city',
     releaseDate: 'February 10, 2004',
     path: 'img/book_devil_in_the_white_city_larson.jpg',
   },
   {
+    id: 3,
     author: 'Steven Gwynne',
     title: 'Empire of the summer moon',
     releaseDate: 'July 7, 2011',
     path: 'img/book_empire_of_the_summer_moon_gwynne.jpg',
   },
   {
+    id: 4,
     author: 'Stacy Schiff',
     title: 'The Revolutionary: Samuel Adams',
     releaseDate: 'October 25, 2022',
     path: 'img/book_the_revolutionary_samuel_adams_schiff.jpg',
   },
   {
+    id: 5,
     author: 'William L. Shirer',
     title: 'The Rise and Fall of the Third Reich',
     releaseDate: 'December 1, 1991',
     path: 'img/book_the_rise_and_fall_of_the_third_reich_shirer.jpg',
   },
   {
+    id: 6,
     author: 'Johnny Joey Jones',
     title: 'Unbroken Bonds of Battle: A Modern Warriors Book of Heroism, Patriotism, and Friendship',
     releaseDate: 'June 27, 2023',
     path: 'img/book_unbroken_bonds_of_battle.jpg',
   },
   {
+    id: 7,
     author: 'Kate Storey',
     title: 'White House by the Sea: A Century of the Kennedys at Hyannis Port',
     releaseDate: 'October 22, 2020',
     path: 'img/book_white_house_by_the_sea_storey.jpg',
   },
   {
+    id: 8,
     author: 'David Grann',
     title: 'Killers of the Flower Moon: The Osage Murders and the Birth of the FBI',
     releaseDate: 'April 18, 2017',
     path: 'img/book_killers_of_the_flower_moon_grann.jpg',
   },
   {
+    id: 9,
     author: "Bill O'Reilly's",
     title: 'Killing the Witches: The Horror of Salem, Massachusetts',
     releaseDate: 'July 7, 2011',
     path: 'img/book_killing_the_witches_oreilly.jpg',
   },
   {
+    id: 10,
     author: 'Lucas Miles',
     title: 'Woke Jesus: The False Messiah Destroying Christianity',
     releaseDate: 'June 6, 2023',
@@ -123,6 +133,7 @@ const requestListener = function (req, res) {
         req.on('end', () => {
           try {
             const data = JSON.parse(body);
+            data.id = booksData.length + 1;
             booksData.push(data);
 
             updatedHtmlString = addBooksToHTML(booksData, html);
