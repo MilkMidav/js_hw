@@ -23,9 +23,9 @@ function sendRequest(book, port, host = 'localhost') {
   };
 
   const req = http.request(options, (res) => {
-    res.on('data', () => {
+    res.on('data', (content) => {
       if (res.statusCode === 201) {
-        console.log('Data submitted successfully!');
+        console.log('Data submitted successfully!', JSON.parse(content));
       } else {
         console.error('Error submitting data');
       }

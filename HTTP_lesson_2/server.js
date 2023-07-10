@@ -15,7 +15,9 @@ const html = `
 </head>
 <body>
   <div class="main_container">
-    <div class="grid_container" id="books"></div>
+    <div class="grid_container" id="books">
+    {{BOOKS_DATA}}
+    </div>
   </div>
 </body>
 </html>`
@@ -106,7 +108,7 @@ function addBooksToHTML(booksData, htmlString) {
     ${containerEndTag}
   `).join('');
 
-  const result = htmlString.replace('<div class="grid_container" id="books"></div>', `<div class="grid_container" id="books">${booksHtml}</div>`);
+  const result = htmlString.replace('{{BOOKS_DATA}}', `${booksHtml}`);
 
   return result;
 }
@@ -122,12 +124,12 @@ function handlePostRequest(req, res, data) {
     req.on('end', () => {
       try {
         const receivedData = JSON.parse(body);
-        data.id = data.length + 1;
+        receivedData.id = data.length + 1;
         data.push(receivedData);
 
         res.setHeader('Content-Type', 'text/plain');
         res.writeHead(201);
-        res.end('Data submitted successfully!');
+        res.end(JSON.stringify(receivedData));
       } catch (error) {
         console.log('Error parsing JSON data', error);
 
@@ -139,7 +141,7 @@ function handlePostRequest(req, res, data) {
   }
 }
 
-const requestListener = function (req, res) {
+function requestListener(req, res) {
   switch (req.url) {
     case "/books":
       handlePostRequest(req, res, booksData);     
