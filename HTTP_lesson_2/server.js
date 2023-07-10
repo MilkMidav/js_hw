@@ -111,7 +111,7 @@ function addBooksToHTML(booksData, htmlString) {
   return result;
 }
 
-function handlePostRequest(req, res) {
+function handlePostRequest(req, res, data) {
   if (req.method === 'POST') {
     let body = '';
 
@@ -121,11 +121,9 @@ function handlePostRequest(req, res) {
 
     req.on('end', () => {
       try {
-        const data = JSON.parse(body);
-        data.id = booksData.length + 1;
-        booksData.push(data);
-
-        updatedHtmlString = addBooksToHTML(booksData, html);
+        const receivedData = JSON.parse(body);
+        data.id = data.length + 1;
+        data.push(receivedData);
 
         res.setHeader('Content-Type', 'text/plain');
         res.writeHead(201);
@@ -141,17 +139,15 @@ function handlePostRequest(req, res) {
   }
 }
 
-let updatedHtmlString = addBooksToHTML(booksData, html);
-
 const requestListener = function (req, res) {
   switch (req.url) {
     case "/books":
-      handlePostRequest(req, res);     
+      handlePostRequest(req, res, booksData);     
       break;
     case "/":
       res.setHeader("Content-Type", "text/html");
       res.writeHead(200);
-      res.end(updatedHtmlString);
+      res.end(addBooksToHTML(booksData, html));
       break;
     case '/styles.css':
       fs.readFile(__dirname + "/styles.css")
