@@ -1,4 +1,4 @@
-const host = 'localhost';
+const http = require('http');
 const port = 8000;
 
 const newBook =   {
@@ -8,24 +8,36 @@ const newBook =   {
   path: 'img/book_holy_bible.jpg',
 }
 
-async function sendRequest(book) {
-  try {
-    const response = await fetch(`http://${host}:${port}/newBook`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(book),
-    });
+function sendRequest(book, port, host = 'localhost') {
+  const requestData = JSON.stringify(book);
 
-    if (response.status === 200) {
-      console.log('Data submitted successfully!');
-    } else {
-      console.error('Error submitting data');
-    }
-  } catch (error) {
+  const options = {
+    hostname: host,
+    port: port,
+    path: '/newBook',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': requestData.length,
+    },
+  };
+
+  const req = http.request(options, (res) => {
+    res.on('data', () => {
+      if (res.statusCode === 201) {
+        console.log('Data submitted successfully!');
+      } else {
+        console.error('Error submitting data');
+      }
+    });
+  })
+
+  req.on('error', (error) => {
     console.error('Error sending request', error);
-  }
+  });
+
+  req.write(requestData);
+  req.end();
 }
 
-sendRequest(newBook);
+sendRequest(newBook, port);

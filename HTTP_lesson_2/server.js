@@ -128,7 +128,7 @@ const requestListener = function (req, res) {
             updatedHtmlString = addBooksToHTML(booksData, html);
             
             res.setHeader('Content-Type', 'text/plain');
-            res.writeHead(200);
+            res.writeHead(201);
             res.end('Data submitted successfully!');
           } catch (error) {
             console.log('Error parsing JSON data', error);
