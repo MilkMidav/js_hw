@@ -5,23 +5,6 @@ const path = require('path');
 const host = 'localhost';
 const port = 8000;
 
-const html = `
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  <title>book</title>
-</head>
-<body>
-  <div class="main_container">
-    <div class="grid_container" id="books">
-    {{BOOKS_DATA}}
-    </div>
-  </div>
-</body>
-</html>`
-
 const booksData = [
   {
     id: 1,
@@ -95,19 +78,26 @@ const booksData = [
   },
 ];
 
-function createBooksPage(booksData, htmlString) {
-  const booksHtml = booksData.map((book) => `
-    <div class="container__card">
-      <img class="card__img" src="${book.path}" alt="book_image">
-      <p class="card__title">${book.title}</p>
-      <p class="card__author">${book.author}</p>
-      <p class="card__release_date">${book.releaseDate}</p>
-    </div>
-  `).join('');
+function createBooksPage(booksData) {
+  return fs.readFile(__dirname + "/index.html", 'utf8')
+    .then(contents => {
+      const booksHtml = booksData.map((book) => `
+      <div class="container__card">
+        <img class="card__img" src="${book.path}" alt="book_image">
+        <p class="card__title">${book.title}</p>
+        <p class="card__author">${book.author}</p>
+        <p class="card__release_date">${book.releaseDate}</p>
+      </div>
+    `).join('');
 
-  const result = htmlString.replace('{{BOOKS_DATA}}', `${booksHtml}`);
+    const result = contents.replace('{{BOOKS_DATA}}', `${booksHtml}`);
 
-  return result;
+    return result;
+    })
+    .catch(err => {
+      console.log(`Could not read index.html file: ${err}`);
+      throw err;
+    });
 }
 
 function handleRequest(req, res, data) {
@@ -136,7 +126,7 @@ function handleRequest(req, res, data) {
   });
 }
 
-function requestListener(req, res) {
+async function requestListener(req, res) {
   switch (req.url) {
     case "/books":
       if (req.method === 'POST') {
@@ -144,9 +134,16 @@ function requestListener(req, res) {
       } else {
         res.setHeader("Content-Type", "text/html");
         res.writeHead(200);
-        res.end(createBooksPage(booksData, html));
+        createBooksPage(booksData)
+          .then(pageContent => {
+            res.end(pageContent);
+          })
+          .catch(err => {
+            console.log(`Error generating books page: ${err}`);
+            res.writeHead(500);
+            res.end();
+          });
       }
-
       break;
     case '/styles.css':
       fs.readFile(__dirname + "/styles.css")
