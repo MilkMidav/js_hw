@@ -113,43 +113,43 @@ function addBooksToHTML(booksData, htmlString) {
   return result;
 }
 
-function handlePostRequest(req, res, data) {
-  if (req.method === 'POST') {
-    let body = '';
+function handleRequest(req, res, data) {
+  let body = '';
 
-    req.on('data', (chunk) => {
-      body += chunk.toString();
-    });
+  req.on('data', (chunk) => {
+    body += chunk.toString();
+  });
 
-    req.on('end', () => {
-      try {
-        const receivedData = JSON.parse(body);
-        receivedData.id = data.length + 1;
-        data.push(receivedData);
+  req.on('end', () => {
+    try {
+      const receivedData = JSON.parse(body);
+      receivedData.id = data.length + 1;
+      data.push(receivedData);
 
-        res.setHeader('Content-Type', 'text/plain');
-        res.writeHead(201);
-        res.end(JSON.stringify(receivedData));
-      } catch (error) {
-        console.log('Error parsing JSON data', error);
+      res.setHeader('Content-Type', 'text/plain');
+      res.writeHead(201);
+      res.end(JSON.stringify(receivedData));
+    } catch (error) {
+      console.log('Error parsing JSON data', error);
 
-        res.setHeader('Content-Type', 'text/plain');
-        res.writeHead(400);
-        res.end('Error submitting data. Invalid JSON format.');
-      }
-    });
-  }
+      res.setHeader('Content-Type', 'text/plain');
+      res.writeHead(400);
+      res.end('Error submitting data. Invalid JSON format.');
+    }
+  });
 }
 
 function requestListener(req, res) {
   switch (req.url) {
     case "/books":
-      handlePostRequest(req, res, booksData);     
-      break;
-    case "/":
-      res.setHeader("Content-Type", "text/html");
-      res.writeHead(200);
-      res.end(addBooksToHTML(booksData, html));
+      if (req.method === 'POST') {
+        handleRequest(req, res, booksData);
+      } else {
+        res.setHeader("Content-Type", "text/html");
+        res.writeHead(200);
+        res.end(addBooksToHTML(booksData, html));
+      }
+
       break;
     case '/styles.css':
       fs.readFile(__dirname + "/styles.css")
