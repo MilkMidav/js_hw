@@ -14,7 +14,7 @@ function sendRequest(book, port, host = 'localhost') {
   const options = {
     hostname: host,
     port: port,
-    path: '/newBook',
+    path: '/books',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

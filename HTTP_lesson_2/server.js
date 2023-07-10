@@ -93,8 +93,6 @@ const booksData = [
   },
 ];
 
-let cssFile;
-
 function addBooksToHTML(booksData, htmlString) {
   const containerStartTag = '<div class="container__card">';
   const containerEndTag = '</div>';
@@ -147,18 +145,27 @@ let updatedHtmlString = addBooksToHTML(booksData, html);
 
 const requestListener = function (req, res) {
   switch (req.url) {
-    case "/newBook":
+    case "/books":
       handlePostRequest(req, res);     
       break;
-    case "/books":
+    case "/":
       res.setHeader("Content-Type", "text/html");
       res.writeHead(200);
       res.end(updatedHtmlString);
       break;
     case '/styles.css':
-      res.setHeader("Content-Type", "text/css");
-      res.writeHead(200);
-      res.end(cssFile);
+      fs.readFile(__dirname + "/styles.css")
+        .then(contents => {
+          res.setHeader("Content-Type", "text/css");
+          res.writeHead(200);
+          res.end(contents);
+        })
+        .catch(err => {
+          console.log(`Could not read style.css file: ${err}`);
+
+          res.writeHead(404);
+          res.end()
+        });
       break;
     default:
       if (req.url.startsWith('/img/')) {
@@ -188,14 +195,6 @@ const requestListener = function (req, res) {
 
 const server = http.createServer(requestListener);
 
-fs.readFile(__dirname + "/styles.css")
-  .then(contents => {
-    cssFile = contents;
-    server.listen(port, host, () => {
-      console.log(`Server is running on http://${host}:${port}`);
-    });
-  })
-  .catch(err => {
-    console.log(`Could not read style.css file: ${err}`);
-    process.exit(1);
-  });
+server.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
+});
