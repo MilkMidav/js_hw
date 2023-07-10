@@ -126,7 +126,7 @@ function handleRequest(req, res, data) {
   });
 }
 
-async function requestListener(req, res) {
+function requestListener(req, res) {
   switch (req.url) {
     case "/books":
       if (req.method === 'POST') {
