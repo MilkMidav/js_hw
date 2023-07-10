@@ -99,21 +99,16 @@ function addBooksToHTML(booksData, htmlString) {
   const containerStartTag = '<div class="container__card">';
   const containerEndTag = '</div>';
 
-  let result = htmlString;
-  let booksHtml = '';
+  const booksHtml = booksData.map((book) => `
+    ${containerStartTag}
+      <img class="card__img" src="${book.path}" alt="book_image">
+      <p class="card__title">${book.title}</p>
+      <p class="card__author">${book.author}</p>
+      <p class="card__release_date">${book.releaseDate}</p>
+    ${containerEndTag}
+  `).join('');
 
-  booksData.forEach((book) => {
-    booksHtml += `
-      ${containerStartTag}
-        <img class="card__img" src="${book.path}" alt="book_image">
-        <p class="card__title">${book.title}</p>
-        <p class="card__author">${book.author}</p>
-        <p class="card__release_date">${book.releaseDate}</p>
-      ${containerEndTag}
-    `;
-  });
-
-  result = result.replace('<div class="grid_container" id="books"></div>', `<div class="grid_container" id="books">${booksHtml}</div>`);
+  const result = htmlString.replace('<div class="grid_container" id="books"></div>', `<div class="grid_container" id="books">${booksHtml}</div>`);
 
   return result;
 }
