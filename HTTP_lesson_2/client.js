@@ -1,7 +1,8 @@
 const http = require('http');
 const port = 8000;
 
-const newBook =   {
+const newBook =
+{
   author: 'God',
   title: 'Holy Bible',
   releaseDate: '15th century B.C.',

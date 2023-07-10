@@ -95,17 +95,14 @@ const booksData = [
   },
 ];
 
-function addBooksToHTML(booksData, htmlString) {
-  const containerStartTag = '<div class="container__card">';
-  const containerEndTag = '</div>';
-
+function createBooksPage(booksData, htmlString) {
   const booksHtml = booksData.map((book) => `
-    ${containerStartTag}
+    <div class="container__card">
       <img class="card__img" src="${book.path}" alt="book_image">
       <p class="card__title">${book.title}</p>
       <p class="card__author">${book.author}</p>
       <p class="card__release_date">${book.releaseDate}</p>
-    ${containerEndTag}
+    </div>
   `).join('');
 
   const result = htmlString.replace('{{BOOKS_DATA}}', `${booksHtml}`);
@@ -147,7 +144,7 @@ function requestListener(req, res) {
       } else {
         res.setHeader("Content-Type", "text/html");
         res.writeHead(200);
-        res.end(addBooksToHTML(booksData, html));
+        res.end(createBooksPage(booksData, html));
       }
 
       break;
