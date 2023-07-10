@@ -12,23 +12,33 @@ p {
 .grid_container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 10px;
+  grid-gap: 30px;
 }
 
 .container__card {
+  background-color: #fff;
+  padding: 20px 0;
+  box-sizing: content-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .card__img {
   cursor: pointer;
   width: 60%;
-  height: 80%;
+  height: 65%;
 }
 
 .card__author {
   cursor: pointer;
+}
+
+.container__card:hover {
+  transform: scale(1.1);
+  border: 1px solid transparent;
+  box-shadow: 0 0 5px 1px rgba(0, 128, 255, 0.5);
 }

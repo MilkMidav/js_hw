@@ -113,38 +113,42 @@ function addBooksToHTML(booksData, htmlString) {
   return result;
 }
 
+function handlePostRequest(req, res) {
+  if (req.method === 'POST') {
+    let body = '';
+
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      try {
+        const data = JSON.parse(body);
+        data.id = booksData.length + 1;
+        booksData.push(data);
+
+        updatedHtmlString = addBooksToHTML(booksData, html);
+
+        res.setHeader('Content-Type', 'text/plain');
+        res.writeHead(201);
+        res.end('Data submitted successfully!');
+      } catch (error) {
+        console.log('Error parsing JSON data', error);
+
+        res.setHeader('Content-Type', 'text/plain');
+        res.writeHead(400);
+        res.end('Error submitting data. Invalid JSON format.');
+      }
+    });
+  }
+}
+
 let updatedHtmlString = addBooksToHTML(booksData, html);
 
 const requestListener = function (req, res) {
   switch (req.url) {
     case "/newBook":
-      if (req.method = 'POST') {
-        let body = '';
-
-        req.on('data', (chunk) => {
-          body += chunk.toString();
-        });
-
-        req.on('end', () => {
-          try {
-            const data = JSON.parse(body);
-            data.id = booksData.length + 1;
-            booksData.push(data);
-
-            updatedHtmlString = addBooksToHTML(booksData, html);
-            
-            res.setHeader('Content-Type', 'text/plain');
-            res.writeHead(201);
-            res.end('Data submitted successfully!');
-          } catch (error) {
-            console.log('Error parsing JSON data', error);
-
-            res.setHeader('Content-Type', 'text/plain');
-            res.writeHead(400);
-            res.end('Error submitting data. Invalid JSON format.');
-          }
-        })
-      }
+      handlePostRequest(req, res);     
       break;
     case "/books":
       res.setHeader("Content-Type", "text/html");
