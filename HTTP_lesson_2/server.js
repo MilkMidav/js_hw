@@ -78,10 +78,11 @@ const booksData = [
   },
 ];
 
-function createBooksPage(booksData) {
-  return fs.readFile(__dirname + "/index.html", 'utf8')
-    .then(contents => {
-      const booksHtml = booksData.map((book) => `
+async function createBooksPage(booksData) {
+  try {
+    const contents = await fs.readFile(`${__dirname}/index.html`, 'utf8')
+
+    const booksHtml = booksData.map((book) => `
       <div class="container__card">
         <img class="card__img" src="${book.path}" alt="book_image">
         <p class="card__title">${book.title}</p>
@@ -90,17 +91,16 @@ function createBooksPage(booksData) {
       </div>
     `).join('');
 
-    const result = contents.replace('{{BOOKS_DATA}}', `${booksHtml}`);
+    const result = contents.replace('{{BOOKS_DATA}}', booksHtml);
 
     return result;
-    })
-    .catch(err => {
-      console.log(`Could not read index.html file: ${err}`);
-      throw err;
-    });
+  } catch (error) {
+    console.log(`Could not read index.html file: ${error}`);
+    throw error;
+  }
 }
 
-function handleRequest(req, res, data) {
+function handleCreateBookRequest(req, res, data) {
   let body = '';
 
   req.on('data', (chunk) => {
@@ -124,60 +124,58 @@ function handleRequest(req, res, data) {
       res.end('Error submitting data. Invalid JSON format.');
     }
   });
+
+  return;
 }
 
-function requestListener(req, res) {
+async function requestListener(req, res) {
   switch (req.url) {
     case "/books":
       if (req.method === 'POST') {
-        handleRequest(req, res, booksData);
+        handleCreateBookRequest(req, res, booksData);
       } else {
-        res.setHeader("Content-Type", "text/html");
-        res.writeHead(200);
-        createBooksPage(booksData)
-          .then(pageContent => {
-            res.end(pageContent);
-          })
-          .catch(err => {
-            console.log(`Error generating books page: ${err}`);
-            res.writeHead(500);
-            res.end();
-          });
+        try {
+          res.setHeader("Content-Type", "text/html");
+          res.writeHead(200);
+          res.end(await createBooksPage(booksData))
+        } catch (error) {
+          console.log(`Error generating books page: ${error}`);
+          res.writeHead(500);
+          res.end();
+        }
       }
       break;
     case '/styles.css':
-      fs.readFile(__dirname + "/styles.css")
-        .then(contents => {
-          res.setHeader("Content-Type", "text/css");
-          res.writeHead(200);
-          res.end(contents);
-        })
-        .catch(err => {
-          console.log(`Could not read style.css file: ${err}`);
+      try {
+        const contents = await fs.readFile(`${__dirname}/styles.css`);
 
-          res.writeHead(404);
-          res.end()
-        });
+        res.setHeader("Content-Type", "text/css");
+        res.writeHead(200);
+        res.end(contents);
+      } catch (error) {
+        console.log(`Could not read style.css file: ${error}`);
+
+        res.writeHead(404);
+        res.end()
+      }
       break;
     default:
       if (req.url.startsWith('/img/')) {
         const imagePath = path.join(__dirname, req.url);
+        try {
+          const imageData = await fs.readFile(imagePath);
+          const extension = path.extname(imagePath).slice(1);
+          const contentType = `image/${extension}`;
 
-        fs.readFile(imagePath)
-          .then(imageData => {
-            const extension = path.extname(imagePath).slice(1);
-            const contentType = `image/${extension}`;
+          res.setHeader("Content-Type", contentType);
+          res.writeHead(200);
+          res.end(imageData);
+        } catch (error) {
+          console.log(`Could not read image file: ${error}`);
 
-            res.setHeader("Content-Type", contentType);
-            res.writeHead(200);
-            res.end(imageData);
-          })
-          .catch(err => {
-            console.log(`Could not read image file: ${err}`);
-
-            res.writeHead(404);
-            res.end();
-          });
+          res.writeHead(404);
+          res.end();
+        }
       } else {
         res.writeHead(404);
         res.end();
