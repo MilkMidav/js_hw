@@ -1,13 +1,12 @@
 const http = require('http');
 const port = 8000;
 
-const newBook =
-{
+const newBook = {
   author: 'God',
   title: 'Holy Bible',
   releaseDate: '15th century B.C.',
   path: 'img/book_holy_bible.jpg',
-}
+}        
 
 function sendRequest(book, port, host = 'localhost') {
   const requestData = JSON.stringify(book);
