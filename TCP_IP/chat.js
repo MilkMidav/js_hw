@@ -27,7 +27,7 @@ function startChat(username, port, receiverPort, hostname = 'localhost') {
     const messageConnections = {
       sender: username,
       handshake: true
-    };
+    };  
 
     socket.write(JSON.stringify(messageConnections));
 
@@ -52,4 +52,4 @@ function startChat(username, port, receiverPort, hostname = 'localhost') {
   });
 }
 
-startChat(username, port, receiverPort, hostname);
+startChat(username, port, receiverPort);
